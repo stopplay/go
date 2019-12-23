@@ -15,7 +15,7 @@ api.interceptors.request.use(async req => {
     const token = await AsyncStorage.getItem('jwtToken');
     if (token) {
       if (req.headers) {
-        req.headers.Authorization = `JWT ${token}`;
+        req.headers.Authorization = `Bearer ${token}`;
       }
     }
     return req;

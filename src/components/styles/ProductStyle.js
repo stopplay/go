@@ -50,6 +50,19 @@ const styles = StyleSheet.create({
     fontSize: Metrics.text.medium,
     marginHorizontal: 10,
   },
+  customProductButton: {
+    height: 25,
+    borderWidth: 1,
+    borderColor: Colors.PRIMARY,
+    borderRadius: 5,
+    padding: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    minWidth: 80,
+  },
+  customProductText: {
+    fontWeight: 'bold',
+  },
   image: {
     width: 60,
     height: 60,

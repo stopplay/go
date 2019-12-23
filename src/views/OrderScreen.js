@@ -21,6 +21,7 @@ import Context from '../utils/context/Context';
 import Header from '../components/Header';
 import ButtonFullWidth from '../components/ButtonFullWidth';
 import ProductList from '../components/ProductList';
+import CustomProductModal from '../components/CustomProductModal';
 
 type Props = {
   navigation: any,
@@ -28,11 +29,12 @@ type Props = {
 
 const OrderScreen = (props: Props) => {
   const { state, dispatch } = useContext(Context);
-  const { currentMenu } = state;
+  const { currentMenu, currentOrder, productToCustomize } = state;
   const [order, setOrder] = useState([]);
   const [orderSize, setOrderSize] = useState(0);
-  const [animatedValue] = useState(new Animated.Value(0));
+  const [animatedValue, setAnimatedValue] = useState(new Animated.Value(0));
   const carousel: any = useRef();
+  const [showCustomProductModal, setShowCustomProductModal] = useState(false);
 
   useEffect(() => {
     const menuToOrder = currentMenu.products.map(product => ({
@@ -44,8 +46,10 @@ const OrderScreen = (props: Props) => {
       quantity: 0,
     }));
     setOrder(menuToOrder);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    setAnimatedValue(new Animated.Value(0));
+    setOrderSize(0);
+    carousel.current.snapToItem(0);
+  }, [currentMenu, currentOrder]);
 
   const handleQuantity = (action: string, product: Object) => {
     if (action === 'add' && orderSize < 10) {
@@ -63,6 +67,21 @@ const OrderScreen = (props: Props) => {
     setOrder(updatedOrder);
   };
 
+  const setProductToCustomize = product => {
+    const productToCustomizeFromMenu = {
+      ...product,
+      extras: product.extras.map(extra => ({
+        ...extra,
+        quantity: 0,
+      })),
+    };
+    dispatch({
+      type: 'SELECT_PRODUCT',
+      payload: productToCustomizeFromMenu,
+    });
+    setShowCustomProductModal(true);
+  };
+
   const _renderItem = ({ index }) => {
     switch (index) {
       case 0:
@@ -73,6 +92,7 @@ const OrderScreen = (props: Props) => {
             )}
             maxPerItem={currentMenu.max_quantity_of_same_item}
             handleQuantity={handleQuantity}
+            setProductToCustomize={setProductToCustomize}
           />
         );
       case 1:
@@ -83,6 +103,7 @@ const OrderScreen = (props: Props) => {
             )}
             maxPerItem={currentMenu.max_quantity_of_same_item}
             handleQuantity={handleQuantity}
+            setProductToCustomize={setProductToCustomize}
           />
         );
     }
@@ -120,9 +141,30 @@ const OrderScreen = (props: Props) => {
     }
   };
 
+  const addCustomProduct = quantity => {
+    setOrderSize(orderSize + 1);
+    const updatedOrder = order.map(item => {
+      if (item.product_id === productToCustomize.product_id) {
+        return {
+          ...productToCustomize,
+          quantity,
+        };
+      } else {
+        return item;
+      }
+    });
+    setOrder(updatedOrder);
+  };
+
   return (
     <View style={[styles.container]}>
       <View style={styles.header}>
+        <CustomProductModal
+          visible={showCustomProductModal}
+          onRequestClose={() => setShowCustomProductModal(false)}
+          addCustomProduct={addCustomProduct}
+          limit={currentMenu.max_quantity_of_same_item}
+        />
         <Header
           title={i18n.t('order.title')}
           icon="bars"

@@ -12,9 +12,14 @@ export type OrderType = {
 };
 
 const getHistory = async (): any => {
-  const response = await api.get('orders/api/orders/');
-  if (response.status === 200) {
-    return response.data.results;
+  try {
+    const response = await api.get('orders/api/orders/');
+    if (response.status === 200) {
+      return response.data.results;
+    }
+  } catch (error) {
+    console.log(error);
+    console.log(error.response);
   }
 };
 
@@ -35,7 +40,14 @@ const createOrder = async (newOrder: any): any => {
         name: product.name,
         price: product.price,
       },
+      extras: product.extras.map(extra => {
+        return {
+          ingredient: `${extra.id}`,
+          quantity: extra.quantity,
+        };
+      }),
     }));
+    console.log(newOrder);
     const response = await api.post('orders/api/orders/', newOrder);
     if (response.status === 201) {
       return response.data;

@@ -72,6 +72,8 @@ export type ProductOrderType = {
   description: string,
   image?: string,
   quantity: number,
+  extras: Array<any>,
+  extra_orders: Array<any>,
 };
 
 export type ConfirmedOrderType = {
@@ -92,6 +94,7 @@ export type State = {
   currentMenu?: MenuType,
   currentOrder?: OrderType,
   orderHistory: Array<ConfirmedOrderType>,
+  productToCustomize: any,
 };
 
 export type Action = {
@@ -116,6 +119,11 @@ export const initialState: State = {
   },
   orderHistory: [],
   currentMenu: {},
+  productToCustomize: {
+    name: 'Product Name',
+    extras: [],
+    product_id: 0,
+  },
 };
 
 // Actions
@@ -235,6 +243,19 @@ export function reducer(state: State = initialState, action: Action) {
         user: {
           ...state.user,
           subscriptions: [...state.user.subscriptions, action.payload],
+        },
+      };
+    case 'SELECT_PRODUCT':
+      return {
+        ...state,
+        productToCustomize: action.payload,
+      };
+    case 'UPDATE_EXTRAS':
+      return {
+        ...state,
+        productToCustomize: {
+          ...state.productToCustomize,
+          extras: action.payload,
         },
       };
     default:

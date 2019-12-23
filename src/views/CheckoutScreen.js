@@ -27,11 +27,24 @@ const CheckoutScreen = (props: Props) => {
   const [typeOfOrder, setTypeOfOrder] = useState('');
 
   const totalCheck = (): string => {
-    const total = currentOrder.products.reduce(
-      (result, item) => result + item.quantity * item.price,
+    const productsWithTotal = currentOrder.products.map(product => {
+      let extraPrice = 0;
+      if (product.extras) {
+        extraPrice = product.extras.reduce(
+          (result, item) => result + item.quantity * parseFloat(item.price),
+          0,
+        );
+      }
+      return {
+        ...product,
+        total: product.quantity * (product.price + extraPrice),
+      };
+    });
+    const totalProducts = productsWithTotal.reduce(
+      (result, item) => result + item.total,
       0,
     );
-    return total.toFixed(2);
+    return totalProducts.toFixed(2);
   };
 
   const handleSubmit = () => {

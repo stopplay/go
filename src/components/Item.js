@@ -16,29 +16,79 @@ type Props = {
 const Item = (props: Props) => {
   const { item } = props;
 
-  const _renderName = () => {
-    if (item.name) {
-      return item.name.toUpperCase();
+  const _handleExtrasNames = () => {
+    if (item.extras) {
+      const extraNames = item.extras
+        .filter(extra => extra.quantity !== 0)
+        .map(extra => `${extra.ingredient} (${extra.quantity})`);
+      return extraNames.join(' - ');
     }
-    if (item.product.name) {
-      return item.product.name.toUpperCase();
+    const extraNames = item.extra_orders
+      .filter(extra => extra.quantity !== 0)
+      .map(extra => `${extra.ingredient} (${extra.quantity})`);
+    return extraNames.join(' - ');
+  };
+
+  const handleTotal = () => {
+    let extrasTotal = 0;
+
+    if (item.extras) {
+      extrasTotal = item.extras.reduce(
+        (result, extra) => result + extra.quantity * parseFloat(extra.price),
+        0,
+      );
     }
-    return '';
+
+    if (item.extra_orders) {
+      extrasTotal = item.extra_orders.reduce(
+        (result, extra) => result + extra.quantity * parseFloat(extra.price),
+        0,
+      );
+    }
+
+    return (item.quantity * (item.product.price + extrasTotal)).toFixed(2);
+  };
+
+  const _renderExtra = () => {
+    if (
+      item.extras &&
+      item.extras.filter(extra => extra.quantity !== 0).length > 0
+    ) {
+      return true;
+    }
+    if (
+      item.extra_orders &&
+      item.extra_orders.filter(extra => extra.quantity !== 0).length > 0
+    ) {
+      return true;
+    }
+    return false;
   };
 
   return (
     <View style={styles.container}>
       <View>
-        <Text style={[styles.textColor, styles.textBold]}>{_renderName()}</Text>
+        <Text style={[styles.textColor, styles.textBold]}>
+          {item.name
+            ? item.name.toUpperCase()
+            : item.product.name.toUpperCase()}
+        </Text>
         <Text style={[styles.textColor, styles.textInfo]}>{`${i18n.t(
           'checkout.item.quantity',
         )}: ${item.quantity}`}</Text>
+        {_renderExtra() && (
+          <Text style={[styles.textColor, styles.textInfo]}>{`${i18n.t(
+            'checkout.item.extras',
+          )}: ${_handleExtrasNames()}`}</Text>
+        )}
         <Text style={[styles.textColor, styles.textInfo]}>{`${i18n.t(
           'checkout.item.total',
-        )}: R$ ${(item.quantity * item.product.price).toFixed(2)}`}</Text>
+        )}: R$ ${handleTotal()}`}</Text>
       </View>
       <Image
-        source={item.image ? item.image : require('../assets/image.png')}
+        source={
+          item.image ? { uri: item.image } : require('../assets/image.png')
+        }
         style={styles.image}
       />
     </View>

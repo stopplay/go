@@ -29,6 +29,7 @@ export default {
   order: {
     title: 'pedido',
     button: 'pagar',
+    customButton: 'adicionar',
     sections: {
       food: 'comida',
       drinks: 'bebidas',
@@ -97,9 +98,14 @@ export default {
       },
     },
   },
+  customProduct: {
+    title: 'Adicionar Ingredientes',
+    button: 'Adicionar Produto',
+  },
   history: {
     title: 'histórico de pedidos',
     details: 'Detalhes',
+    status: 'Status',
   },
   checkout: {
     title: 'confirmar pedido',
@@ -114,6 +120,7 @@ export default {
     item: {
       quantity: 'Quantidade',
       total: 'Total',
+      extras: 'Extras',
     },
     errors: {
       selectType: 'Por favor selecione como deseja receber seu produto',

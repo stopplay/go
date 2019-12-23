@@ -8,6 +8,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome5';
 import styles from './styles/ProductStyle';
 import { Colors } from '../theme';
+import i18n from '../i18n/i18n';
 
 type Props = {
   item: {
@@ -16,13 +17,15 @@ type Props = {
     image?: string,
     quantity: number,
     description: string,
+    extras: Array<any>,
   },
   max: number,
   handleQuantity: Function,
+  setProductToCustomize: Function,
 };
 
 const Product = (props: Props) => {
-  const { item, max, handleQuantity } = props;
+  const { item, max, handleQuantity, setProductToCustomize } = props;
 
   const onPressMinus = () => {
     if (item.quantity > 0) {
@@ -42,6 +45,34 @@ const Product = (props: Props) => {
     }
   };
 
+  const _renderButtons = () => {
+    if (item.extras.length > 0) {
+      if (item.quantity > 0) {
+        return <Text>Adicionado!</Text>;
+      }
+      return (
+        <TouchableOpacity
+          style={styles.customProductButton}
+          onPress={() => setProductToCustomize(item)}>
+          <Text style={styles.customProductText}>
+            {i18n.t('order.customButton').toUpperCase()}
+          </Text>
+        </TouchableOpacity>
+      );
+    }
+    return (
+      <>
+        <TouchableOpacity onPress={onPressMinus} style={styles.pressArea}>
+          <Icon name="minus-circle" color={Colors.BLACK} size={20} />
+        </TouchableOpacity>
+        <Text style={styles.countNumber}>{`${item.quantity}/${max}`}</Text>
+        <TouchableOpacity onPress={onPressPlus} style={styles.pressArea}>
+          <Icon name="plus-circle" color={Colors.BLACK} size={20} />
+        </TouchableOpacity>
+      </>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.infoContainer}>
@@ -55,19 +86,7 @@ const Product = (props: Props) => {
       </View>
       <View style={styles.logicContainer}>
         <Image style={styles.image} source={require('../assets/image.png')} />
-        <View style={styles.counterContainer}>
-          <TouchableOpacity
-            onPress={() => onPressMinus()}
-            style={styles.pressArea}>
-            <Icon name="minus-circle" color={Colors.BLACK} size={20} />
-          </TouchableOpacity>
-          <Text style={styles.countNumber}>{`${item.quantity}/${max}`}</Text>
-          <TouchableOpacity
-            onPress={() => onPressPlus()}
-            style={styles.pressArea}>
-            <Icon name="plus-circle" color={Colors.BLACK} size={20} />
-          </TouchableOpacity>
-        </View>
+        <View style={styles.counterContainer}>{_renderButtons()}</View>
       </View>
     </View>
   );

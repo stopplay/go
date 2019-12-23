@@ -28,6 +28,7 @@ export default {
   order: {
     title: 'order',
     button: 'checkout',
+    customButton: 'add',
     sections: {
       food: 'food',
       drinks: 'drinks',
@@ -96,9 +97,14 @@ export default {
       },
     },
   },
+  customProduct: {
+    title: 'Extra Igredients',
+    button: 'Add Product',
+  },
   history: {
     title: 'order history',
     details: 'Details',
+    status: 'Status',
   },
   checkout: {
     title: 'checkout',
@@ -113,6 +119,7 @@ export default {
     item: {
       quantity: 'Quantity',
       total: 'Total',
+      extras: 'Extras',
     },
     errors: {
       selectType: 'Please select how do you want to receive your order',

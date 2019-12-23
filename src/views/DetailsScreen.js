@@ -7,6 +7,7 @@ import React from 'react';
 import { View, Text, FlatList } from 'react-native';
 import i18n from '../i18n/i18n';
 import styles from './styles/DetailsScreenStyle';
+import { formatDateTime } from '../utils/helpers';
 // Types
 import type { ConfirmedOrderType } from '../utils/context/Context';
 // Components
@@ -98,7 +99,7 @@ const DetailsScreen = (props: Props) => {
               {i18n.t('details.date').toUpperCase()}:
             </Text>
             <Text style={[styles.tableInfoText, styles.textColor]}>
-              {` ${date.toLocaleString()}`}
+              {` ${formatDateTime(date)}`}
             </Text>
           </View>
         </View>

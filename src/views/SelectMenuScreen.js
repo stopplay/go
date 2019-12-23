@@ -26,12 +26,16 @@ const SelectMenuScreen = (props: Props) => {
 
   useEffect(() => {
     (async () => {
-      if (state.orderHistory.length === 0) {
-        const data = await Orders.getHistory();
-        dispatch({
-          type: 'LOAD_HISTORY',
-          payload: data.reverse(),
-        });
+      try {
+        if (state.orderHistory.length === 0) {
+          const data = await Orders.getHistory();
+          dispatch({
+            type: 'LOAD_HISTORY',
+            payload: data.reverse(),
+          });
+        }
+      } catch (error) {
+        console.log(error);
       }
     })();
   }, [dispatch, state.orderHistory.length]);
@@ -72,11 +76,11 @@ const SelectMenuScreen = (props: Props) => {
   return (
     <View style={[styles.container, styles.paddingContainer]}>
       <Button
-        onPress={() => goToOrder(5)}
+        onPress={() => goToOrder(9)}
         value={i18n.t('selectMenu.button.table')}
       />
       <Button
-        onPress={() => goToOrder(6)}
+        onPress={() => goToOrder(8)}
         value={i18n.t('selectMenu.button.deliveryCollection')}
       />
       <Button

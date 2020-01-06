@@ -57,7 +57,7 @@ export default {
       cep: 'CEP',
       number: 'Number',
       district: 'District',
-      complement: 'Complement',
+      complement: 'Complement / Apartment',
     },
     searchCep: 'Search',
     errors: {

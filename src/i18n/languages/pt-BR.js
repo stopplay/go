@@ -58,10 +58,16 @@ export default {
       cep: 'CEP',
       number: 'Número',
       district: 'Bairro',
-      complement: 'Complemento',
+      complement: 'Complemento / Apartamento',
     },
+    searchCep: 'Buscar',
     errors: {
       emptyFields: 'Por favor preenchar todos os campos obrigatórios',
+      emptyCep: 'Por favor digite o CEP',
+      cepValidation: {
+        formatError: 'Por favor digite todos os 8 números do CEP.',
+        invalid: 'Por favor digite um CEP válido',
+      },
     },
   },
   addPayment: {

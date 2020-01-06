@@ -29,7 +29,7 @@ type Props = {
 
 const OrderScreen = (props: Props) => {
   const { state, dispatch } = useContext(Context);
-  const { currentMenu, currentOrder, productToCustomize } = state;
+  const { currentMenu, productToCustomize } = state;
   const [order, setOrder] = useState([]);
   const [orderSize, setOrderSize] = useState(0);
   const [animatedValue, setAnimatedValue] = useState(new Animated.Value(0));
@@ -49,7 +49,7 @@ const OrderScreen = (props: Props) => {
     setAnimatedValue(new Animated.Value(0));
     setOrderSize(0);
     carousel.current.snapToItem(0);
-  }, [currentMenu, currentOrder]);
+  }, [currentMenu]);
 
   const handleQuantity = (action: string, product: Object) => {
     if (action === 'add' && orderSize < 10) {

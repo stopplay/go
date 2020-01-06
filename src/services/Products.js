@@ -48,37 +48,17 @@ const selectMenu = async (menuId: number): Promise<?MenuType> => {
   }
 };
 
-const getAll = (): Array<ProductType> => {
-  return [
-    {
-      product_id: 1,
-      name: 'Sashimi',
-      price: 10,
-      stock: -37,
-      description: 'Sashimi',
-    },
-    {
-      product_id: 2,
-      name: 'Pizza',
-      price: 20,
-      stock: -37,
-      description: 'Pizza',
-    },
-    {
-      product_id: 3,
-      name: 'Chocolate Cake',
-      price: 5,
-      stock: -37,
-      description: 'A piece of delicious chocolate cake',
-    },
-    {
-      product_id: 4,
-      name: 'Donut',
-      price: 8,
-      stock: -37,
-      description: 'The best Donut in town',
-    },
-  ];
+const getMenus = async (): Promise<?Array<MenuType>> => {
+  try {
+    const response = await api.get('products/api/menus/');
+    if (response.status === 200) {
+      return response.data.results;
+    }
+    return null;
+  } catch (error) {
+    console.log(error);
+    console.log(error.response);
+  }
 };
 
 const getPackages = async (): Promise<?Array<PackageType>> => {
@@ -120,4 +100,4 @@ const clubSubscribe = async (
   }
 };
 
-export default { selectMenu, getAll, getPackages, clubSubscribe };
+export default { selectMenu, getMenus, getPackages, clubSubscribe };

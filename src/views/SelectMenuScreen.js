@@ -4,8 +4,8 @@
  * @flow
  */
 
-import React, { useContext, useEffect } from 'react';
-import { View } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { View, ToastAndroid, ActivityIndicator, Text } from 'react-native';
 import styles from './styles/SelectLoginScreenStyle';
 import i18n from '../i18n/i18n';
 // Services
@@ -22,11 +22,16 @@ type Props = {
 
 const SelectMenuScreen = (props: Props) => {
   const { state, dispatch } = useContext(Context);
+  const [menus, setMenus] = useState([]);
   const { user } = state;
 
   useEffect(() => {
     (async () => {
       try {
+        const menusFetcheds = await Products.getMenus();
+        if (menusFetcheds) {
+          setMenus(menusFetcheds);
+        }
         if (state.orderHistory.length === 0) {
           const data = await Orders.getHistory();
           dispatch({
@@ -60,33 +65,64 @@ const SelectMenuScreen = (props: Props) => {
     return props.navigation.navigate('ClubStack');
   };
 
-  const goToOrder = async (menuId: number) => {
+  const goToOrder = async (typeOfOrder: string) => {
     try {
-      const response = await Products.selectMenu(menuId);
+      const menusFromType = menus.filter(
+        menu => menu.type_of_menu.toLowerCase() === typeOfOrder,
+      );
+
+      if (menusFromType.length === 0) {
+        return ToastAndroid.show(
+          i18n.t('selectMenu.menuMessage'),
+          ToastAndroid.LONG,
+        );
+      }
+
+      let activeMenu = menusFromType.filter(menu => menu.active);
+      activeMenu = activeMenu.length === 0 ? menusFromType[0] : activeMenu[0];
+
       dispatch({
         type: 'SELECTED_MENU',
-        payload: response,
+        payload: activeMenu,
       });
-      props.navigation.navigate('OrderStack');
+      return props.navigation.navigate('OrderScreen');
     } catch (error) {
       console.log(error);
     }
   };
 
+  const _renderButtons = () => {
+    if (menus.length === 0) {
+      return (
+        <>
+          <ActivityIndicator color="grey" size="small" />
+          <Text style={styles.loadingMessage}>
+            {i18n.t('selectMenu.loadingMessage')}
+          </Text>
+        </>
+      );
+    }
+    return (
+      <>
+        <Button
+          onPress={() => goToOrder('mesa')}
+          value={i18n.t('selectMenu.button.table')}
+        />
+        <Button
+          onPress={() => goToOrder('take away')}
+          value={i18n.t('selectMenu.button.deliveryCollection')}
+        />
+        <Button
+          onPress={() => goToBreadClub()}
+          value={i18n.t('selectMenu.button.club')}
+        />
+      </>
+    );
+  };
+
   return (
     <View style={[styles.container, styles.paddingContainer]}>
-      <Button
-        onPress={() => goToOrder(9)}
-        value={i18n.t('selectMenu.button.table')}
-      />
-      <Button
-        onPress={() => goToOrder(8)}
-        value={i18n.t('selectMenu.button.deliveryCollection')}
-      />
-      <Button
-        onPress={() => goToBreadClub()}
-        value={i18n.t('selectMenu.button.club')}
-      />
+      {_renderButtons()}
     </View>
   );
 };

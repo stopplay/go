@@ -3,8 +3,8 @@
  * @format
  */
 
-import React, { useContext } from 'react';
-import { View, Text, ToastAndroid } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { View, Text, ActivityIndicator, ToastAndroid } from 'react-native';
 import styles from './styles/CollectOrderScreenStyle';
 import i18n from '../i18n/i18n';
 // Services
@@ -24,8 +24,29 @@ const CollectOrderScreen = (props: Props) => {
   const { state, dispatch } = useContext(Context);
   const { setLoading } = useContext(LoadingContext);
   const { currentOrder } = state;
+  const [estimatedTime, setEstimatedTime] = useState('00h00');
+  const [innerLoading, setInnerLoading] = useState(true);
 
-  console.log(currentOrder);
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await Orders.getEstimateTime();
+        if (data) {
+          const { estimated_time } = data;
+          const hours = Math.floor(estimated_time / 60);
+          const minutes = Math.floor((estimated_time - hours * 60) / 60);
+          setEstimatedTime(
+            `${hours.toString().padStart(2, '0')}h${minutes
+              .toString()
+              .padStart(2, '0')}`,
+          );
+        }
+        setInnerLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
 
   const handleSubmit = async () => {
     try {
@@ -78,13 +99,20 @@ const CollectOrderScreen = (props: Props) => {
           <Text style={[styles.textColor, styles.infoText]}>
             {i18n.t('collectOrder.infos.collect.textOne')}
           </Text>
-          <Text style={styles.clockText}>01:30:00</Text>
+          <Text style={styles.clockText}>{estimatedTime}</Text>
           <Text style={[styles.textColor, styles.infoText]}>
             {i18n.t('collectOrder.infos.collect.textTwo')}
           </Text>
         </>
       );
     }
+  };
+
+  const _renderLoading = () => {
+    if (innerLoading) {
+      return <ActivityIndicator size="large" color="grey" />;
+    }
+    return _renderContent();
   };
 
   return (
@@ -96,7 +124,7 @@ const CollectOrderScreen = (props: Props) => {
           onPress={() => props.navigation.goBack()}
         />
       </View>
-      <View style={styles.body}>{_renderContent()}</View>
+      <View style={styles.body}>{_renderLoading()}</View>
       <View style={styles.footer}>
         <ButtonFullWIdth
           value={i18n.t('collectOrder.button')}

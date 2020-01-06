@@ -92,7 +92,7 @@ export default {
         textTwo: 'after your confirmation.',
       },
       collect: {
-        textOne: 'Your order will be ready in',
+        textOne: 'Your order will be ready in approximately',
         textTwo: 'after your confirmation',
       },
     },

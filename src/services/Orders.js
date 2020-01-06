@@ -61,4 +61,17 @@ const createOrder = async (newOrder: any): any => {
   }
 };
 
-export default { getHistory, createOrder };
+const getEstimateTime = async (): Promise<any> => {
+  try {
+    const response = await api.get('orders/api/get_estimated_time');
+    if (response.data) {
+      return response.data;
+    }
+    return null;
+  } catch (error) {
+    console.log(error);
+    console.log(error.response);
+  }
+};
+
+export default { getHistory, createOrder, getEstimateTime };

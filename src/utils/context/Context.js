@@ -66,6 +66,7 @@ export type ProductOrderType = {
   product: {
     name: string,
     price: number,
+    image?: string,
   },
   name: string,
   price: number,

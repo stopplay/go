@@ -21,9 +21,10 @@ const styles = StyleSheet.create({
     fontSize: Metrics.text.small,
   },
   image: {
-    width: 60,
-    height: 60,
+    width: 65,
+    height: 65,
     resizeMode: 'cover',
+    borderRadius: 5,
   },
 });
 

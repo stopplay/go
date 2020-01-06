@@ -85,7 +85,12 @@ const Product = (props: Props) => {
         </Text>
       </View>
       <View style={styles.logicContainer}>
-        <Image style={styles.image} source={require('../assets/image.png')} />
+        <Image
+          style={styles.image}
+          source={
+            item.image ? { uri: item.image } : require('../assets/image.png')
+          }
+        />
         <View style={styles.counterContainer}>{_renderButtons()}</View>
       </View>
     </View>

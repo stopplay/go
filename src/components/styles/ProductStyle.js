@@ -64,10 +64,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   image: {
-    width: 60,
-    height: 60,
+    width: 65,
+    height: 65,
     resizeMode: 'cover',
-    borderRadius: 10,
+    borderRadius: 5,
     marginBottom: 5,
   },
 });

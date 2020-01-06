@@ -65,6 +65,16 @@ const Item = (props: Props) => {
     return false;
   };
 
+  const _productImage = () => {
+    if (item.image) {
+      return { uri: item.image };
+    }
+    if (item.product.image) {
+      return { uri: `https://mpos.stopplay.io${item.product.image}` };
+    }
+    return require('../assets/image.png');
+  };
+
   return (
     <View style={styles.container}>
       <View>
@@ -85,12 +95,7 @@ const Item = (props: Props) => {
           'checkout.item.total',
         )}: R$ ${handleTotal()}`}</Text>
       </View>
-      <Image
-        source={
-          item.image ? { uri: item.image } : require('../assets/image.png')
-        }
-        style={styles.image}
-      />
+      <Image source={_productImage()} style={styles.image} />
     </View>
   );
 };

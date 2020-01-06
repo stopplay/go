@@ -8,7 +8,7 @@ import type {
   PaymentType,
 } from '../utils/context/Context';
 import api, { authApi } from './config';
-
+import i18n from '../i18n/i18n';
 export type AuthType = {
   token: string,
   user: UserType,
@@ -131,6 +131,24 @@ const addCreditCard = async (newCard: PaymentType): Promise<?PaymentType> => {
   }
 };
 
+const validateCEP = async (cep: string): any => {
+  try {
+    const response = await api.get(`https://viacep.com.br/ws/${cep}/json/`);
+    if (response.data.erro) {
+      throw 'invalid';
+    }
+    if (response.data) {
+      return response.data;
+    }
+    return null;
+  } catch (error) {
+    if (error === 'invalid') {
+      throw { message: i18n.t('addAddress.errors.cepValidation.invalid') };
+    }
+    throw { message: i18n.t('addAddress.errors.cepValidation.formatError') };
+  }
+};
+
 export default {
   register,
   login,
@@ -139,4 +157,5 @@ export default {
   getAddresses,
   addAddress,
   addCreditCard,
+  validateCEP,
 };

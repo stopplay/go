@@ -59,8 +59,14 @@ export default {
       district: 'District',
       complement: 'Complement',
     },
+    searchCep: 'Search',
     errors: {
       emptyFields: 'Please enter all required fields',
+      emptyCep: 'Please Enter the zip code',
+      cepValidation: {
+        formatError: 'Please enter all the 8 numbers of the zip code.',
+        invalid: 'Please enter a valid zip code',
+      },
     },
   },
   addPayment: {

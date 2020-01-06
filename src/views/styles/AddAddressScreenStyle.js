@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import generalScreenStyle from './GeneralScreenStyle';
-import { Metrics } from '../../theme';
+import { Metrics, Colors } from '../../theme';
 
 const styles = StyleSheet.create({
   ...generalScreenStyle,
@@ -43,6 +43,26 @@ const styles = StyleSheet.create({
   },
   formGroupBigger: {
     width: '57%',
+  },
+  cpfInput: {
+    width: '80%',
+  },
+  cpfVerifyButton: {
+    width: '20%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  input: {
+    width: '100%',
+    textAlign: 'left',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginVertical: 10,
+    height: 50,
+    color: Colors.BLACK,
+    borderWidth: 1,
+    borderColor: Colors.PRIMARY,
+    borderRadius: 40,
   },
 });
 export default styles;

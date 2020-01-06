@@ -3,16 +3,18 @@
  * @format
  */
 
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import {
   View,
   Text,
   KeyboardAvoidingView,
   ScrollView,
   ToastAndroid,
+  TouchableOpacity,
 } from 'react-native';
 import styles from './styles/AddAddressScreenStyle';
 import i18n from '../i18n/i18n';
+import { TextInputMask } from 'react-native-masked-text';
 import CheckBox from '@react-native-community/checkbox';
 // Hooks
 import useForm from '../utils/hooks/Form';
@@ -23,6 +25,7 @@ import LoadingContext from '../utils/context/LoadingContext';
 import Header from '../components/Header';
 import ButtonFullWidth from '../components/ButtonFullWidth';
 import InputText from '../components/InputText';
+// Services
 import User from '../services/User';
 // import { StackActions } from 'react-navigation';
 
@@ -34,6 +37,7 @@ const AddAddressScreen = (props: Props) => {
   const [checked, setChecked] = useState(false);
   const { state, dispatch } = useContext(Context);
   const { setLoading } = useContext(LoadingContext);
+  const cepInputRef = useRef<TextInputMask.TextMaskInstance>();
 
   const addAddress = async () => {
     try {
@@ -83,6 +87,26 @@ const AddAddressScreen = (props: Props) => {
     addAddress,
   );
 
+  const validateAddress = async () => {
+    try {
+      const cepValue = cepInputRef.current.getRawValue();
+      if (cepValue === '') {
+        return ToastAndroid.show(
+          i18n.t('addAddress.errors.emptyCep'),
+          ToastAndroid.LONG,
+        );
+      }
+      const data = await User.validateCEP(cepValue);
+      if (data) {
+        formInputs.street = data.logradouro;
+        handleInputChange('district', data.bairro);
+      }
+    } catch (error) {
+      console.log(error);
+      ToastAndroid.show(error.message, ToastAndroid.LONG);
+    }
+  };
+
   return (
     <View style={[styles.container]}>
       <View style={styles.header}>
@@ -102,20 +126,28 @@ const AddAddressScreen = (props: Props) => {
             />
           </View>
           <View style={[styles.row, styles.formGroup]}>
+            <View style={styles.cpfInput}>
+              <TextInputMask
+                placeholder={i18n.t('addAddress.placeholders.cep')}
+                type="zip-code"
+                value={formInputs.cep}
+                onChangeText={text => handleInputChange('cep', text)}
+                keyboardType="numeric"
+                style={styles.input}
+                ref={cepInputRef}
+              />
+            </View>
+            <TouchableOpacity
+              style={styles.cpfVerifyButton}
+              onPress={validateAddress}>
+              <Text>{i18n.t('addAddress.searchCep')}</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={[styles.row, styles.formGroup]}>
             <InputText
               placeholder={i18n.t('addAddress.placeholders.street')}
               value={formInputs.street}
               onChangeText={text => handleInputChange('street', text)}
-            />
-          </View>
-          <View style={[styles.row, styles.formGroup]}>
-            <InputText
-              placeholder={i18n.t('addAddress.placeholders.cep')}
-              typeOfMask="custom"
-              maskOptions={{ mask: '99999-999' }}
-              value={formInputs.cep}
-              onChangeText={text => handleInputChange('cep', text)}
-              keyboardType="numeric"
             />
           </View>
           <View style={[styles.row, styles.formGroup]}>

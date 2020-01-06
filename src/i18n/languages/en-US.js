@@ -223,5 +223,7 @@ export default {
       table: 'table',
       club: 'go! club',
     },
+    menuMessage: 'No menus for this type of order',
+    loadingMessage: 'Loading menus',
   },
 };

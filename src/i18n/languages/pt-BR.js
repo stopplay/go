@@ -224,5 +224,7 @@ export default {
       table: 'mesa',
       club: 'go! club',
     },
+    menuMessage: 'Não há menu cadastrado para esse tipo de pedido',
+    loadingMessage: 'Carregando cardápios',
   },
 };

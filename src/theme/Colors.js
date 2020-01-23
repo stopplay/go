@@ -7,6 +7,7 @@ const Colors = {
   LIGHTPRIMARY: '#A8A8A880',
   SUPERLIGHTPRIMARY: '#E4E4E480',
   SECONDARY: '#BBBCBC',
+  RED: 'red',
 };
 
 export default Colors;

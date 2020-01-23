@@ -81,6 +81,7 @@ export type ConfirmedOrderType = {
   type_of_order: string,
   table_code?: string,
   order_code: string,
+  order_id: number,
   status: string,
   date_ordered: string,
   creditCard?: PaymentType,
@@ -259,6 +260,15 @@ export function reducer(state: State = initialState, action: Action) {
           extras: action.payload,
         },
       };
+    case 'CANCEL_ORDER': {
+      const filteredOrderHistory: Array<any> = state.orderHistory.filter(
+        order => order.order_id !== action.payload.order_id,
+      );
+      return {
+        ...state,
+        orderHistory: filteredOrderHistory,
+      };
+    }
     default:
       return state;
   }

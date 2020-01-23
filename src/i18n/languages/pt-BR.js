@@ -139,6 +139,7 @@ export default {
     type: 'Tipo',
     status: 'Status',
     date: 'Data',
+    cancel: 'Cancelar Pedido',
     typeOfOrder: {
       collection: 'Retirar em Loja',
       delivery: 'Entrega',
@@ -147,6 +148,9 @@ export default {
         delivery: 'Clube Entrega',
         collection: 'Clube Retirar em Loja',
       },
+    },
+    error: {
+      cancel: 'Falha ao cancelar pedido',
     },
   },
   sideMenu: {

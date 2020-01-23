@@ -3,11 +3,24 @@
  * @format
  */
 
-import React from 'react';
-import { View, Text, FlatList } from 'react-native';
+import React, { useContext } from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  ToastAndroid,
+} from 'react-native';
 import i18n from '../i18n/i18n';
 import styles from './styles/DetailsScreenStyle';
 import { formatDateTime } from '../utils/helpers';
+import { StackActions } from 'react-navigation';
+
+// Context
+import Context from '../utils/context/Context';
+import LoadingContext from '../utils/context/LoadingContext';
+// Services
+import Orders from '../services/Orders';
 // Types
 import type { ConfirmedOrderType } from '../utils/context/Context';
 // Components
@@ -20,7 +33,8 @@ type Props = {
 
 const DetailsScreen = (props: Props) => {
   const order: ConfirmedOrderType = props.navigation.getParam('order');
-  const date = new Date(order.date_ordered);
+  const { setLoading } = useContext(LoadingContext);
+  const { dispatch } = useContext(Context);
 
   const typeOfOrder = {
     'O-M': 'details.typeOfOrder.table',
@@ -49,6 +63,46 @@ const DetailsScreen = (props: Props) => {
           <Text style={[styles.tableInfoText, styles.textColor]}>
             {` ${order.table_code ? order.table_code : ''}`}
           </Text>
+        </View>
+      );
+    }
+  };
+
+  const cancelOrder = async () => {
+    try {
+      setLoading(true);
+      const data = await Orders.cancelOrder(order.order_id);
+      if (data) {
+        dispatch({
+          type: 'CANCEL_ORDER',
+          payload: data,
+        });
+        props.navigation.dispatch(StackActions.popToTop());
+        return setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      ToastAndroid.show(i18n.t(error.message), ToastAndroid.LONG);
+    }
+  };
+
+  const _renderCancel = () => {
+    if (order.status.toLowerCase() === 'a fazer') {
+      return (
+        <View style={styles.row}>
+          <TouchableOpacity
+            style={styles.cancelButtonContainer}
+            onPress={cancelOrder}>
+            <Text
+              style={[
+                styles.tableInfoText,
+                styles.cancelButtonText,
+                styles.boldText,
+              ]}>
+              {i18n.t('details.cancel').toUpperCase()}
+            </Text>
+          </TouchableOpacity>
         </View>
       );
     }
@@ -99,9 +153,10 @@ const DetailsScreen = (props: Props) => {
               {i18n.t('details.date').toUpperCase()}:
             </Text>
             <Text style={[styles.tableInfoText, styles.textColor]}>
-              {` ${formatDateTime(date)}`}
+              {` ${formatDateTime(order.date_ordered)}`}
             </Text>
           </View>
+          {_renderCancel()}
         </View>
         <FlatList
           data={order.items}

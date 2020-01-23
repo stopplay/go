@@ -32,5 +32,11 @@ const styles = StyleSheet.create({
   tableInfoText: {
     fontSize: Metrics.text.regular,
   },
+  cancelButtonText: {
+    color: Colors.RED,
+  },
+  cancelButtonContainer: {
+    alignItems: 'center',
+  },
 });
 export default styles;

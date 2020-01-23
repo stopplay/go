@@ -47,7 +47,6 @@ const createOrder = async (newOrder: any): any => {
         };
       }),
     }));
-    console.log(newOrder);
     const response = await api.post('orders/api/orders/', newOrder);
     if (response.status === 201) {
       return response.data;
@@ -58,6 +57,23 @@ const createOrder = async (newOrder: any): any => {
     console.log(error.response);
     const message = Object.values(error.response.data)[0];
     throw { message };
+  }
+};
+
+const cancelOrder = async (orderId: number): any => {
+  try {
+    const response = await api.post(
+      `/orders/api/orders/${orderId}/cancel_order/`,
+    );
+    console.log(response);
+    if (response.status === 200) {
+      return response.data;
+    }
+    return null;
+  } catch (error) {
+    console.log(error);
+    console.log(error.message);
+    throw { message: 'details.error.cancel' };
   }
 };
 
@@ -74,4 +90,4 @@ const getEstimateTime = async (): Promise<any> => {
   }
 };
 
-export default { getHistory, createOrder, getEstimateTime };
+export default { getHistory, createOrder, cancelOrder, getEstimateTime };

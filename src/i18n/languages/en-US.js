@@ -138,6 +138,7 @@ export default {
     type: 'Type',
     status: 'Status',
     date: 'Date',
+    cancel: 'Cancel Order',
     typeOfOrder: {
       collection: 'Collection',
       delivery: 'Delivery',
@@ -146,6 +147,9 @@ export default {
         delivery: 'Club Delivery',
         collection: 'Club Collection',
       },
+    },
+    error: {
+      cancel: 'Failed to cancel order.',
     },
   },
   sideMenu: {

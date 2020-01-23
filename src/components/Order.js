@@ -18,7 +18,6 @@ type Props = {
 
 const Order = (props: Props): Node => {
   const { item, onPress } = props;
-  const date = new Date(item.date_ordered);
 
   return (
     <View style={styles.container}>
@@ -26,7 +25,9 @@ const Order = (props: Props): Node => {
         <Text style={[styles.textBold, styles.textColor]}>
           {`Order - ${item.order_code}`.toUpperCase()}
         </Text>
-        <Text style={styles.textColor}>{formatDateTime(date)}</Text>
+        <Text style={styles.textColor}>
+          {formatDateTime(item.date_ordered)}
+        </Text>
         <Text style={[styles.textBold, styles.textColor]}>
           {i18n.t('history.status')}: {item.status}
         </Text>

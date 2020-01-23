@@ -12,9 +12,10 @@ export const getUser = async (): Promise<string> => {
   return await AsyncStorage.getItem('jwtToken');
 };
 
-export const formatDateTime = (date: Date): string => {
-  const dateArray = date.toLocaleDateString().split('/');
-  return `${dateArray[1].padStart(2, '0')}/${dateArray[0].padStart(2, '0')}/${
-    dateArray[2]
-  } - ${date.toLocaleTimeString().toString()}`;
+export const formatDateTime = (date: string): string => {
+  const dateTimeArray = date.toString().split('T');
+  const dateSplited = dateTimeArray[0].split('-');
+  const dateFormated = `${dateSplited[2]}/${dateSplited[1]}/${dateSplited[0]}`;
+  const timeFromDate = dateTimeArray[1].split('.')[0];
+  return `${dateFormated} - ${timeFromDate}`;
 };

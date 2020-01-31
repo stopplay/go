@@ -182,7 +182,7 @@ const LoginScreen = (props: Props) => {
           maskOptions={{
             maskType: 'BRL',
             withDDD: true,
-            dddMask: '(83)',
+            dddMask: '(99)',
           }}
           value={formInputs.phone}
           keyboardType="phone-pad"

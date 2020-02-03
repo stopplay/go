@@ -37,14 +37,16 @@ const OrderScreen = (props: Props) => {
   const [showCustomProductModal, setShowCustomProductModal] = useState(false);
 
   useEffect(() => {
-    const menuToOrder = currentMenu.products.map(product => ({
-      ...product,
-      product: {
-        name: product.name,
-        price: product.price,
-      },
-      quantity: 0,
-    }));
+    const menuToOrder = currentMenu.products
+      .map(product => ({
+        ...product,
+        product: {
+          name: product.name,
+          price: product.price,
+        },
+        quantity: 0,
+      }))
+      .filter(product => product.stock !== 0);
     setOrder(menuToOrder);
     setAnimatedValue(new Animated.Value(0));
     setOrderSize(0);

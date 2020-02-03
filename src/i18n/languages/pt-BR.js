@@ -152,6 +152,7 @@ export default {
     error: {
       cancel: 'Falha ao cancelar pedido',
     },
+    canceled: 'cancelado',
   },
   sideMenu: {
     home: 'principal',

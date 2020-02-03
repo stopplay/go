@@ -151,6 +151,7 @@ export default {
     error: {
       cancel: 'Failed to cancel order.',
     },
+    canceled: 'canceled',
   },
   sideMenu: {
     home: 'home',

@@ -261,12 +261,14 @@ export function reducer(state: State = initialState, action: Action) {
         },
       };
     case 'CANCEL_ORDER': {
-      const filteredOrderHistory: Array<any> = state.orderHistory.filter(
-        order => order.order_id !== action.payload.order_id,
-      );
       return {
         ...state,
-        orderHistory: filteredOrderHistory,
+        orderHistory: state.orderHistory.map<any>(order => {
+          if (order.order_id === action.payload.order_id) {
+            return action.payload;
+          }
+          return order;
+        }),
       };
     }
     default:

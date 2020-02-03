@@ -3,7 +3,13 @@
  * @format
  */
 
-import React, { useState, useContext, useRef } from 'react';
+import React, {
+  useState,
+  useContext,
+  useRef,
+  useCallback,
+  useEffect,
+} from 'react';
 import {
   View,
   Text,
@@ -11,6 +17,7 @@ import {
   ScrollView,
   ToastAndroid,
   TouchableOpacity,
+  BackHandler,
 } from 'react-native';
 import styles from './styles/AddAddressScreenStyle';
 import i18n from '../i18n/i18n';
@@ -39,6 +46,23 @@ const AddAddressScreen = (props: Props) => {
   const { setLoading } = useContext(LoadingContext);
   const cepInputRef = useRef<TextInputMask.TextMaskInstance>();
 
+  const handleBackNavigation = useCallback(() => {
+    if (state.currentOrder && state.currentOrder.products.length > 0) {
+      return props.navigation.navigate('DeliveryScreen');
+    }
+    return props.navigation.goBack();
+  }, [props.navigation, state.currentOrder]);
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackNavigation);
+    return () => {
+      BackHandler.removeEventListener(
+        'hardwareBackPress',
+        handleBackNavigation,
+      );
+    };
+  }, [handleBackNavigation]);
+
   const addAddress = async () => {
     try {
       const { name, street, cep, number, district } = formInputs;
@@ -63,10 +87,7 @@ const AddAddressScreen = (props: Props) => {
           type: 'ADDRESS_ADDED',
           payload: data,
         });
-        if (state.currentOrder && state.currentOrder.products.length > 0) {
-          props.navigation.navigate('DeliveryScreen');
-        }
-        props.navigation.goBack();
+        handleBackNavigation();
       }
       setLoading(false);
     } catch (error) {
@@ -113,7 +134,7 @@ const AddAddressScreen = (props: Props) => {
         <Header
           title={i18n.t('addAddress.title')}
           icon="arrow-left"
-          onPress={() => props.navigation.goBack()}
+          onPress={handleBackNavigation}
         />
       </View>
       <KeyboardAvoidingView style={styles.form}>

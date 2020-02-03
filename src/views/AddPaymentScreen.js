@@ -3,13 +3,14 @@
  * @format
  */
 
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback, useEffect } from 'react';
 import {
   View,
   Text,
   KeyboardAvoidingView,
   ScrollView,
   ToastAndroid,
+  BackHandler,
 } from 'react-native';
 import styles from './styles/AddPaymentScreenStyle';
 import i18n from '../i18n/i18n';
@@ -36,6 +37,23 @@ const AddPaymentScreen = (props: Props) => {
   const { setLoading } = useContext(LoadingContext);
   const [checked, setChecked] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
+
+  const handleBackNavigation = useCallback(() => {
+    if (state.currentOrder && state.currentOrder.products.length > 0) {
+      return props.navigation.navigate('DeliveryScreen');
+    }
+    return props.navigation.goBack();
+  }, [props.navigation, state.currentOrder]);
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackNavigation);
+    return () => {
+      BackHandler.removeEventListener(
+        'hardwareBackPress',
+        handleBackNavigation,
+      );
+    };
+  }, [handleBackNavigation]);
 
   const addPayment = async () => {
     try {
@@ -67,10 +85,7 @@ const AddPaymentScreen = (props: Props) => {
           type: 'CARD_ADDED',
           payload: formInputs,
         });
-        if (state.currentOrder && state.currentOrder.products.length > 0) {
-          props.navigation.navigate('DeliveryScreen');
-        }
-        props.navigation.goBack();
+        handleBackNavigation();
       }
       setLoading(false);
     } catch (error) {
@@ -96,7 +111,7 @@ const AddPaymentScreen = (props: Props) => {
         <Header
           title={i18n.t('addPayment.title')}
           icon="arrow-left"
-          onPress={() => props.navigation.goBack()}
+          onPress={handleBackNavigation}
         />
       </View>
       <KeyboardAvoidingView style={styles.body}>

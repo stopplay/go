@@ -70,7 +70,7 @@ const Item = (props: Props) => {
       return { uri: item.image };
     }
     if (item.product.image) {
-      return { uri: `https://mpos.stopplay.io${item.product.image}` };
+      return { uri: `https://mposgo.stopplay.io${item.product.image}` };
     }
     return require('../assets/image.png');
   };

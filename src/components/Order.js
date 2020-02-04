@@ -9,7 +9,7 @@ import styles from './styles/OrderStyle';
 import i18n from '../i18n/i18n';
 // Types
 import type { Node } from 'react';
-import { formatDateTime } from '../utils/helpers';
+import { formatDateTime, translatedStatusOrder } from '../utils/helpers';
 
 type Props = {
   item: any,
@@ -29,7 +29,7 @@ const Order = (props: Props): Node => {
           {formatDateTime(item.date_ordered)}
         </Text>
         <Text style={[styles.textBold, styles.textColor]}>
-          {i18n.t('history.status')}: {item.status}
+          {i18n.t('history.status')}: {translatedStatusOrder(item.status)}
         </Text>
       </View>
       <View>

@@ -151,6 +151,15 @@ export default {
     error: {
       cancel: 'Failed to cancel order.',
     },
+    orderStatus: {
+      toDo: 'To Do',
+      doing: 'Doing',
+      done: 'Done',
+      depot: 'Depot',
+      completed: 'Completed',
+      canceled: 'Canceled',
+      canceledAndRefunded: 'Canceled and Refunded',
+    },
     canceled: 'canceled',
   },
   sideMenu: {

@@ -152,6 +152,15 @@ export default {
     error: {
       cancel: 'Falha ao cancelar pedido',
     },
+    orderStatus: {
+      toDo: 'A fazer',
+      doing: 'Fazendo',
+      done: 'Feito',
+      depot: 'Depósito',
+      completed: 'Finalizado',
+      canceled: 'Cancelado',
+      canceledAndRefunded: 'Cancelado e Reembolsado',
+    },
     canceled: 'cancelado',
   },
   sideMenu: {

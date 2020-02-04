@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import i18n from '../i18n/i18n';
 import styles from './styles/DetailsScreenStyle';
-import { formatDateTime } from '../utils/helpers';
+import { formatDateTime, translatedStatusOrder } from '../utils/helpers';
 import { StackActions } from 'react-navigation';
 
 // Context
@@ -144,7 +144,7 @@ const DetailsScreen = (props: Props) => {
               {i18n.t('details.status').toUpperCase()}:
             </Text>
             <Text style={[styles.tableInfoText, styles.textColor]}>
-              {` ${order.status}`}
+              {` ${translatedStatusOrder(order.status)}`}
             </Text>
           </View>
           <View style={styles.row}>

@@ -27,7 +27,6 @@ type Props = {
 };
 
 const UserDetailsScreen = (props: Props) => {
-  const [keyboardDidShow, setKeyboardDidShow] = useState(false);
   const { state, dispatch } = useContext(Context);
   const { user } = state;
 
@@ -76,32 +75,6 @@ const UserDetailsScreen = (props: Props) => {
     },
     submitForm,
   );
-
-  useEffect(() => {
-    const keyboardShowListener = Keyboard.addListener('keyboardDidShow', () =>
-      setKeyboardDidShow(true),
-    );
-    const keyboardHideListener = Keyboard.addListener('keyboardDidHide', () =>
-      setKeyboardDidShow(false),
-    );
-    return () => {
-      Keyboard.removeListener(keyboardShowListener);
-      Keyboard.removeListener(keyboardHideListener);
-    };
-  }, []);
-
-  // const _keyboardStyle = () => {
-  //   if (keyboardDidShow) {
-  //     return {
-  //       maxHeight: 200,
-  //       paddingTop: 30,
-  //     };
-  //   } else {
-  //     return {
-  //       maxHeight: 350,
-  //     };
-  //   }
-  // };
 
   return (
     <View style={styles.container}>

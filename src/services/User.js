@@ -122,6 +122,18 @@ const addAddress = async (newAddress: AddressType): Promise<?AddressType> => {
   }
 };
 
+const removeAddress = async (addressId: number): Promise<?any> => {
+  try {
+    const response = await api.get(`users/api/address/${addressId}/delete/`);
+    if (response.status === 200) {
+      return response.data;
+    }
+    return null;
+  } catch (error) {
+    console.log(error.response);
+  }
+};
+
 const addCreditCard = async (newCard: PaymentType): Promise<?PaymentType> => {
   try {
     const response = await api.post('payment/api/credit_card/', newCard);
@@ -159,6 +171,7 @@ export default {
   getProfile,
   getAddresses,
   addAddress,
+  removeAddress,
   addCreditCard,
   validateCEP,
 };

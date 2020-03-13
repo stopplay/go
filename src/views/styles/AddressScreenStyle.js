@@ -15,10 +15,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.SUPERLIGHTPRIMARY,
     marginVertical: 5,
   },
-  message: {
-    width: '100%',
-    textAlign: 'center',
-  },
   header: {
     flex: 1,
     width: '100%',
@@ -36,6 +32,16 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     justifyContent: 'flex-end',
+  },
+  pressTrashArea: {
+    width: 60,
+    height: 60,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
+  emptyText: {
+    width: '100%',
+    textAlign: 'center',
   },
 });
 export default styles;

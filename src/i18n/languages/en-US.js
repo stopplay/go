@@ -225,6 +225,11 @@ export default {
     title: 'Address',
     button: 'add',
     message: 'No address registered yet',
+    deleteMessage: 'Are you sure you want to delete this address?',
+    deleteButtons: {
+      cancel: 'Cancel',
+      confirm: 'Confirm',
+    },
   },
   paymentScreen: {
     title: 'Payment Methods',

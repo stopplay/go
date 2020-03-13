@@ -10,19 +10,17 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   form: {
-    flex: 8,
+    flex: 9,
     width: '100%',
     paddingTop: 20,
-    paddingBottom: 5,
-    paddingHorizontal: '5%',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  scrollContainer: {
+  scrollContainerForm: {
     width: '100%',
+    paddingHorizontal: '5%',
   },
   footer: {
-    flex: 1,
     width: '100%',
     justifyContent: 'flex-end',
   },

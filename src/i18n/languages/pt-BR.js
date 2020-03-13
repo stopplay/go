@@ -226,6 +226,11 @@ export default {
     title: 'Endereços',
     button: 'Adicionar',
     message: 'Nenhum endereço cadastrado.',
+    deleteMessage: 'Tem certeza que deseja remover esse endereço?',
+    deleteButtons: {
+      cancel: 'Cancelar',
+      confirm: 'Confirmar',
+    },
   },
   paymentScreen: {
     title: 'Métodos de Pagamento',

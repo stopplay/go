@@ -22,19 +22,18 @@ import {
 import styles from './styles/AddAddressScreenStyle';
 import i18n from '../i18n/i18n';
 import { TextInputMask } from 'react-native-masked-text';
-import CheckBox from '@react-native-community/checkbox';
 // Hooks
 import useForm from '../utils/hooks/Form';
 // Contexts
 import Context from '../utils/context/Context';
 import LoadingContext from '../utils/context/LoadingContext';
 // Components
+import CheckBox from '../components/CheckBox';
 import Header from '../components/Header';
 import ButtonFullWidth from '../components/ButtonFullWidth';
 import InputText from '../components/InputText';
 // Services
 import User from '../services/User';
-// import { StackActions } from 'react-navigation';
 
 type Props = {
   navigation: any,
@@ -138,7 +137,7 @@ const AddAddressScreen = (props: Props) => {
         />
       </View>
       <KeyboardAvoidingView style={styles.form}>
-        <ScrollView style={styles.scrollContainer}>
+        <ScrollView style={styles.scrollContainerForm}>
           <View style={[styles.row, styles.formGroup]}>
             <InputText
               placeholder={i18n.t('addAddress.placeholders.name')}
@@ -196,19 +195,20 @@ const AddAddressScreen = (props: Props) => {
             />
           </View>
           <View style={[styles.row, styles.checkBoxContainer]}>
-            <CheckBox value={checked} onChange={() => setChecked(!checked)} />
-            <Text style={styles.checkBoxText}>
-              {i18n.t('addAddress.checkBox').toUpperCase()}
-            </Text>
+            <CheckBox
+              value={checked}
+              onChange={() => setChecked(!checked)}
+              description={i18n.t('addAddress.checkBox').toUpperCase()}
+            />
           </View>
         </ScrollView>
+        <View style={styles.footer}>
+          <ButtonFullWidth
+            value={i18n.t('addAddress.button')}
+            onPress={handleSubmit}
+          />
+        </View>
       </KeyboardAvoidingView>
-      <View style={styles.footer}>
-        <ButtonFullWidth
-          value={i18n.t('addAddress.button')}
-          onPress={handleSubmit}
-        />
-      </View>
     </View>
   );
 };

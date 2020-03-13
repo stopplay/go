@@ -39,7 +39,7 @@ const PaymentsScreen = (props: Props) => {
       <View style={styles.header}>
         <Header
           title={i18n.t('paymentScreen.title')}
-          icon="bars"
+          icon="menu"
           onPress={() => props.navigation.toggleDrawer()}
         />
       </View>

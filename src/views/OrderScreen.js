@@ -169,7 +169,7 @@ const OrderScreen = (props: Props) => {
         />
         <Header
           title={i18n.t('order.title')}
-          icon="bars"
+          icon="menu"
           onPress={props.navigation.toggleDrawer}
         />
         <View style={styles.infoContainer}>

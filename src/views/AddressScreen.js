@@ -74,7 +74,7 @@ const AddressScreen = (props: Props) => {
       <View style={styles.header}>
         <Header
           title={i18n.t('addressScreen.title')}
-          icon="bars"
+          icon="menu"
           onPress={() => props.navigation.toggleDrawer()}
         />
       </View>

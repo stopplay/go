@@ -3,13 +3,8 @@
  * @format
  */
 
-import React, { useContext, useEffect, useState } from 'react';
-import {
-  View,
-  ToastAndroid,
-  KeyboardAvoidingView,
-  Keyboard,
-} from 'react-native';
+import React, { useContext } from 'react';
+import { View, ToastAndroid, KeyboardAvoidingView } from 'react-native';
 import styles from './styles/UserDetailsScreenStyle';
 import i18n from '../i18n/i18n';
 import Context from '../utils/context/Context';
@@ -81,7 +76,7 @@ const UserDetailsScreen = (props: Props) => {
       <View style={styles.header}>
         <Header
           title={i18n.t('userDetails.title')}
-          icon="bars"
+          icon="menu"
           onPress={() => props.navigation.toggleDrawer()}
         />
       </View>

@@ -7,7 +7,7 @@ import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './styles/SideMenuStyle';
 import i18n from '../i18n/i18n';
-import Icon from 'react-native-vector-icons/dist/FontAwesome5';
+import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 // Context
 import Context from '../utils/context/Context';
 // Components
@@ -35,7 +35,7 @@ const SideMenu = (props: Props) => {
           <TouchableOpacity
             onPress={props.navigation.toggleDrawer}
             style={styles.pressArea}>
-            <Icon name="times" color="black" size={20} />
+            <Icon name="close" color="black" size={20} />
           </TouchableOpacity>
         </View>
         <View>
@@ -57,17 +57,17 @@ const SideMenu = (props: Props) => {
         />
         <NavButton
           name={i18n.t('sideMenu.userDetails')}
-          icon="user"
+          icon="person"
           onPress={() => props.navigation.navigate('UserDetailsScreen')}
         />
         <NavButton
           name={i18n.t('sideMenu.address')}
-          icon="map-marker-alt"
+          icon="place"
           onPress={() => props.navigation.navigate('AddressScreen')}
         />
         <NavButton
           name={i18n.t('sideMenu.paymentMethods')}
-          icon="money-bill"
+          icon="local-atm"
           onPress={() => props.navigation.navigate('PaymentsScreen')}
         />
         <NavButton
@@ -77,7 +77,7 @@ const SideMenu = (props: Props) => {
         />
         <NavButton
           name={i18n.t('sideMenu.logout')}
-          icon="sign-out-alt"
+          icon="exit-to-app"
           rotate="180deg"
           onPress={handleLogout}
         />

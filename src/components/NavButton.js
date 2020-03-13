@@ -6,7 +6,7 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles/NavButtonStyle';
-import Icon from 'react-native-vector-icons/dist/FontAwesome5';
+import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 
 type Props = {
   name: string,

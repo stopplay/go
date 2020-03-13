@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
-import Icon from 'react-native-vector-icons/dist/FontAwesome5';
+import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 import styles from './styles/ProductStyle';
 import { Colors } from '../theme';
 import i18n from '../i18n/i18n';
@@ -63,11 +63,11 @@ const Product = (props: Props) => {
     return (
       <>
         <TouchableOpacity onPress={onPressMinus} style={styles.pressArea}>
-          <Icon name="minus-circle" color={Colors.BLACK} size={20} />
+          <Icon name="remove-circle" color={Colors.BLACK} size={20} />
         </TouchableOpacity>
         <Text style={styles.countNumber}>{`${item.quantity}/${max}`}</Text>
         <TouchableOpacity onPress={onPressPlus} style={styles.pressArea}>
-          <Icon name="plus-circle" color={Colors.BLACK} size={20} />
+          <Icon name="add-circle" color={Colors.BLACK} size={20} />
         </TouchableOpacity>
       </>
     );

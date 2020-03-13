@@ -15,7 +15,7 @@ import {
 import i18n from '../i18n/i18n';
 import styles from './styles/CustomProductModalStyle';
 import { Colors } from '../theme';
-import Icon from 'react-native-vector-icons/dist/FontAwesome5';
+import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 // Components
 import Button from './Button';
 import Ingredient from './Ingredient';
@@ -76,21 +76,6 @@ const CustomProductModal = (props: Props) => {
     setExtras(updatedExtras);
   };
 
-  // const _renderCategory = extra => {
-  //   return (
-  //     <View style={styles.category}>
-  //       <View style={[styles.categoryHeader, styles.paddingHorizontal]}>
-  //         <Text style={styles.categoryTitle}>
-  //           {extra.category.toUpperCase()}
-  //         </Text>
-  //       </View>
-  //       {extra.ingredients.map((ingredient, index) => (
-  //         <Ingredient ingredient={ingredient} key={index} />
-  //       ))}
-  //     </View>
-  //   );
-  // };
-
   return (
     <Modal
       visible={visible}
@@ -104,7 +89,7 @@ const CustomProductModal = (props: Props) => {
               {productToCustomize.name.toUpperCase()}
             </Text>
             <TouchableOpacity onPress={handleCloseModal}>
-              <Icon name="times" color={Colors.SECONDARY} size={24} />
+              <Icon name="close" color={Colors.SECONDARY} size={24} />
             </TouchableOpacity>
           </View>
           <View style={styles.body}>
@@ -131,13 +116,13 @@ const CustomProductModal = (props: Props) => {
               <TouchableOpacity
                 onPress={() => handleProductQuantity('remove')}
                 style={styles.quantityPressAreaButton}>
-                <Icon name="minus" size={26} />
+                <Icon name="remove" size={26} />
               </TouchableOpacity>
               <Text style={styles.quantityText}>{productQuantity}</Text>
               <TouchableOpacity
                 onPress={() => handleProductQuantity('add')}
                 style={styles.quantityPressAreaButton}>
-                <Icon name="plus" size={26} />
+                <Icon name="add" size={26} />
               </TouchableOpacity>
             </View>
             <Button
@@ -154,4 +139,4 @@ const CustomProductModal = (props: Props) => {
   );
 };
 
-export default React.memo<any>(CustomProductModal);
+export default React.memo<Props>(CustomProductModal);

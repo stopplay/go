@@ -8,7 +8,7 @@ import { View, Modal, Text } from 'react-native';
 import styles from './styles/ConfirmSubscribeStyle';
 import i18n from '../i18n/i18n';
 import Button from './Button';
-import Icon from 'react-native-vector-icons/dist/FontAwesome5';
+import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 
 type Props = {
   visible: boolean,

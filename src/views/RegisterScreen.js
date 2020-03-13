@@ -14,7 +14,7 @@ import {
 import styles from './styles/RegisterScreenStyle';
 import i18n from '../i18n/i18n';
 import { setUser } from '../utils/helpers';
-import Icon from 'react-native-vector-icons/dist/FontAwesome5';
+import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 // Hooks
 import useRegisterForm from '../utils/hooks/RegisterForm';
 // Contexts
@@ -118,7 +118,7 @@ const LoginScreen = (props: Props) => {
       return (
         <>
           <View style={styles.progressContainer}>
-            <Icon name="user-circle" solid color="black" size={24} />
+            <Icon name="person" solid color="black" size={24} />
             <View style={[styles.progressSeparator, styles.doneSeparator]} />
             <Icon name="check-circle" color="black" size={24} />
             <View style={[styles.progressSeparator, styles.doneSeparator]} />
@@ -151,7 +151,7 @@ const LoginScreen = (props: Props) => {
     return (
       <>
         <View style={styles.progressContainer}>
-          <Icon name="user-circle" solid color="black" size={24} />
+          <Icon name="person" solid color="black" size={24} />
           <View style={[styles.progressSeparator, styles.doneSeparator]} />
           <Icon name="check-circle" color="grey" size={24} />
           <View style={styles.progressSeparator} />
@@ -193,7 +193,7 @@ const LoginScreen = (props: Props) => {
             <Text style={styles.buttonText}>
               {i18n.t('register.nextButton').toUpperCase()}
             </Text>
-            <Icon name="arrow-right" color="white" size={14} />
+            <Icon name="chevron-right" color="white" size={14} />
           </TouchableOpacity>
         </View>
       </>

@@ -6,7 +6,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './styles/IngredientStyle';
-import Icon from 'react-native-vector-icons/dist/FontAwesome5';
+import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 import { Colors } from '../theme/index';
 
 type Props = {
@@ -45,7 +45,7 @@ const Ingredient = (props: Props) => {
       <View style={styles.counterContainer}>
         {ingredient.quantity > 0 && (
           <TouchableOpacity onPress={onPressMinus} style={styles.pressArea}>
-            <Icon name="minus-circle" color={Colors.BLACK} size={20} />
+            <Icon name="remove-circle" color={Colors.BLACK} size={20} />
           </TouchableOpacity>
         )}
         <Text style={styles.countNumber}>
@@ -56,7 +56,7 @@ const Ingredient = (props: Props) => {
           style={styles.pressArea}
           disabled={ingredient.quantity === ingredient.limit}>
           <Icon
-            name="plus-circle"
+            name="add-circle"
             color={
               ingredient.quantity === ingredient.limit
                 ? Colors.LIGHTPRIMARY

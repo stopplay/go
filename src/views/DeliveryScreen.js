@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import styles from './styles/DeliveryScreenStyle';
 import i18n from '../i18n/i18n';
-import Icon from 'react-native-vector-icons/dist/FontAwesome5';
+import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 // Contexts
 import Context from '../utils/context/Context';
 // Components
@@ -113,7 +113,7 @@ const DeliveryScreen = (props: Props) => {
       <View style={styles.header}>
         <Header
           title={_renderTitle()}
-          icon="arrow-left"
+          icon="keyboard-backspace"
           onPress={() => props.navigation.goBack()}
         />
       </View>

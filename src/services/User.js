@@ -65,15 +65,18 @@ const getProfile = async (): Promise<?AuthType> => {
 
 const updateProfile = async (userInfo: ProfileType) => {
   try {
-    console.log(userInfo);
     const response = await api.patch('users/api/clients/me/', userInfo);
-    console.log(response);
     if (response.status === 200) {
       return response.data;
     }
     return null;
   } catch (error) {
     console.log(error);
+    const errors = {};
+    if (error.response.status === 400) {
+      errors.message = Object.values(error.response.data)[0];
+    }
+    throw errors;
   }
 };
 

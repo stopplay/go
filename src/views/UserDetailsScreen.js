@@ -26,37 +26,42 @@ const UserDetailsScreen = (props: Props) => {
   const { user } = state;
 
   const submitForm = async () => {
-    if (
-      formInputs.name === '' ||
-      formInputs.surname === '' ||
-      formInputs.cpf === '' ||
-      formInputs.phone === '' ||
-      formInputs.email === ''
-    ) {
-      return ToastAndroid.show(
-        i18n.t('userDetails.errors.emptyFields'),
-        ToastAndroid.LONG,
-      );
-    }
-    const updatedInfos = {
-      first_name: formInputs.name,
-      last_name: formInputs.surname,
-      email: formInputs.email,
-      profile: {
-        phone_number: formInputs.phone,
-        cpf: formInputs.cpf,
-      },
-    };
-    const data = await User.updateProfile(updatedInfos);
-    if (data) {
-      dispatch({
-        type: 'UPDATE_USER',
-        payload: data.user,
-      });
-      return ToastAndroid.show(
-        i18n.t('userDetails.message'),
-        ToastAndroid.LONG,
-      );
+    try {
+      if (
+        formInputs.name === '' ||
+        formInputs.surname === '' ||
+        formInputs.cpf === '' ||
+        formInputs.phone === '' ||
+        formInputs.email === ''
+      ) {
+        return ToastAndroid.show(
+          i18n.t('userDetails.errors.emptyFields'),
+          ToastAndroid.LONG,
+        );
+      }
+      const updatedInfos = {
+        first_name: formInputs.name,
+        last_name: formInputs.surname,
+        email: formInputs.email,
+        profile: {
+          phone_number: formInputs.phone,
+          cpf: formInputs.cpf,
+        },
+      };
+      const data = await User.updateProfile(updatedInfos);
+      if (data) {
+        dispatch({
+          type: 'UPDATE_USER',
+          payload: data.user,
+        });
+        return ToastAndroid.show(
+          i18n.t('userDetails.message'),
+          ToastAndroid.LONG,
+        );
+      }
+    } catch (error) {
+      console.log(error);
+      return ToastAndroid.show(error.message, ToastAndroid.LONG);
     }
   };
 

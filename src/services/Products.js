@@ -26,6 +26,7 @@ export type PackageType = {
 };
 
 export type MenuType = {
+  active: boolean,
   menu_id: number,
   name: string,
   type_of_menu: string,

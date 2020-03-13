@@ -15,6 +15,7 @@ import Orders from '../services/Orders';
 import Context from '../utils/context/Context';
 // Components
 import Button from '../components/Button';
+import Header from '../components/Header';
 
 type Props = {
   navigation: Object,
@@ -45,7 +46,7 @@ const SelectMenuScreen = (props: Props) => {
     })();
   }, [dispatch, state.orderHistory.length]);
 
-  const goToBreadClub = async () => {
+  const goToClub = async () => {
     if (user.subscriptions.length > 0) {
       const data = await Products.selectMenu(
         user.subscriptions[0].package.menu,
@@ -113,7 +114,7 @@ const SelectMenuScreen = (props: Props) => {
           value={i18n.t('selectMenu.button.deliveryCollection')}
         />
         <Button
-          onPress={() => goToBreadClub()}
+          onPress={() => goToClub()}
           value={i18n.t('selectMenu.button.club')}
         />
       </>
@@ -121,8 +122,9 @@ const SelectMenuScreen = (props: Props) => {
   };
 
   return (
-    <View style={[styles.container, styles.paddingContainer]}>
-      {_renderButtons()}
+    <View style={styles.container}>
+      <Header icon="menu" onPress={props.navigation.toggleDrawer} />
+      <View style={styles.selectMenuContainer}>{_renderButtons()}</View>
     </View>
   );
 };

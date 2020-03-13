@@ -105,11 +105,12 @@ const DrawerConfig = {
 
 const AppStack = createDrawerNavigator(
   {
-    OrderStack: OrderStack,
-    ClubStack: ClubStack,
-    AddressStack: AddressStack,
-    PaymentStack: PaymentStack,
-    HistoryStack: HistoryStack,
+    MenuStack,
+    OrderStack,
+    ClubStack,
+    AddressStack,
+    PaymentStack,
+    HistoryStack,
     UserDetailsScreen: { screen: UserDetailsScreen },
   },
   DrawerConfig,

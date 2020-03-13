@@ -20,6 +20,13 @@ const generalScreenStyle = StyleSheet.create({
     height: '100%',
     alignItems: 'center',
   },
+  selectMenuContainer: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: '5%',
+  },
   registerContainer: {
     width: '100%',
     height: '100%',

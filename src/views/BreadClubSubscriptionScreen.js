@@ -77,7 +77,7 @@ const BreadClubSubscriptionScreen = (props: Props) => {
       <View style={styles.header}>
         <Header
           title={i18n.t('club.sub.title')}
-          icon="arrow-left"
+          icon="keyboard-backspace"
           onPress={() => props.navigation.goBack()}
         />
       </View>

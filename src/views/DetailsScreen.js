@@ -113,7 +113,7 @@ const DetailsScreen = (props: Props) => {
       <View style={styles.header}>
         <Header
           title={i18n.t('details.title')}
-          icon="arrow-left"
+          icon="keyboard-backspace"
           onPress={() => props.navigation.goBack()}
         />
       </View>

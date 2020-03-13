@@ -32,6 +32,7 @@ type ClubPackageType = {
 };
 
 export type AddressType = {
+  address_id: number,
   name: string,
   street: string,
   district: string,
@@ -153,6 +154,17 @@ export function reducer(state: State = initialState, action: Action) {
         user: {
           ...state.user,
           addresses: [...state.user.addresses, action.payload],
+        },
+      };
+    case 'ADDRESS_REMOVED':
+      const filteredAddress: Array<AddressType> = state.user.addresses.filter(
+        address => address.address_id !== action.payload,
+      );
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          addresses: filteredAddress,
         },
       };
     case 'CARD_ADDED':

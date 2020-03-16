@@ -20,7 +20,7 @@ const Order = (props: Props): Node => {
   const { item, onPress } = props;
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity onPress={onPress} style={styles.container}>
       <View>
         <Text style={[styles.textBold, styles.textColor]}>
           {`Order - ${item.order_code}`.toUpperCase()}
@@ -33,13 +33,13 @@ const Order = (props: Props): Node => {
         </Text>
       </View>
       <View>
-        <TouchableOpacity onPress={onPress}>
+        <View>
           <Text style={[styles.button, styles.textColor]}>
             {i18n.t('history.details')}
           </Text>
-        </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

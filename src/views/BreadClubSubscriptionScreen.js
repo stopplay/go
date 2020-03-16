@@ -5,7 +5,6 @@
 
 import React, { useState, useContext } from 'react';
 import { View, Text, ScrollView, ToastAndroid } from 'react-native';
-import CheckBox from '@react-native-community/checkbox';
 import styles from './styles/BreadClubSubscriptionScreenStyle';
 import i18n from '../i18n/i18n';
 // Contexts
@@ -19,6 +18,7 @@ import Header from '../components/Header';
 import ButtonFullWidth from '../components/ButtonFullWidth';
 import InputText from '../components/InputText';
 import ConfirmSubscribe from '../components/ConfirmSubscribe';
+import CheckBox from '../components/CheckBox';
 
 type Props = {
   navigation: any,
@@ -141,12 +141,8 @@ const BreadClubSubscriptionScreen = (props: Props) => {
             <CheckBox
               value={agreement}
               onChange={() => setAgreement(!agreement)}
+              description={i18n.t('club.sub.agreement')}
             />
-            <View style={styles.agreeTextContainer}>
-              <Text style={styles.agreeText}>
-                {i18n.t('club.sub.agreement')}
-              </Text>
-            </View>
           </View>
         </ScrollView>
       </View>

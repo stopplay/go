@@ -26,7 +26,7 @@ export const translatedStatusOrder = (status: string): string => {
     afazer: 'details.orderStatus.toDo',
     fazendo: 'details.orderStatus.doing',
     feito: 'details.orderStatus.done',
-    depot: 'details.orderStatus.club.depot',
+    depot: 'details.orderStatus.depot',
     completed: 'details.orderStatus.completed',
     canceled: 'details.orderStatus.canceled',
     canceledandrefunded: 'details.orderStatus.canceledAndRefunded',

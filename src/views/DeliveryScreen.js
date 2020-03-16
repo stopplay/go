@@ -3,11 +3,10 @@
  * @format
  */
 
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
   View,
   Text,
-  ScrollView,
   SafeAreaView,
   FlatList,
   TouchableOpacity,
@@ -40,6 +39,18 @@ const DeliveryScreen = (props: Props) => {
   const [selectedCreditCard, setSelectedCreditCard] = useState(
     user.cards.filter(cc => cc.active)[0],
   );
+
+  // Refresh Addresses Automaticaly after Add a new one
+  useEffect(() => {
+    setAddresses(user.addresses);
+    setSelectedAddress(user.addresses.filter(addr => addr.active)[0]);
+  }, [user.addresses]);
+
+  // Refresh Credit Card automaticaly after add a new one
+  useEffect(() => {
+    setCreditCards(user.cards);
+    setSelectedCreditCard(user.cards.filter(cc => cc.active)[0]);
+  }, [user.cards]);
 
   const handleSubmit = () => {
     dispatch({
@@ -118,78 +129,80 @@ const DeliveryScreen = (props: Props) => {
         />
       </View>
       <SafeAreaView style={[styles.body]}>
-        <ScrollView>
-          <View style={styles.containerPaddingHorizontal}>
-            {currentOrder.infos.type_of_order
-              .toLowerCase()
-              .includes('delivery') && (
-              <View style={styles.infoContainer}>
-                <View style={styles.refreshRow}>
-                  <Text>{i18n.t('delivery.address')}</Text>
-                  <TouchableOpacity onPress={refreshAddresses}>
-                    <Icon name="sync" size={20} color={Colors.PRIMARY} />
-                  </TouchableOpacity>
-                </View>
-                <SafeAreaView>
-                  {addresses.map((address, index) => {
+        <View style={styles.containerPaddingHorizontal}>
+          {currentOrder.infos.type_of_order
+            .toLowerCase()
+            .includes('delivery') && (
+            <View style={styles.infoContainer}>
+              <View style={styles.refreshRow}>
+                <Text>{i18n.t('delivery.address')}</Text>
+                <TouchableOpacity onPress={refreshAddresses}>
+                  <Icon name="sync" size={20} color={Colors.PRIMARY} />
+                </TouchableOpacity>
+              </View>
+              <SafeAreaView style={{ maxHeight: 225 }}>
+                <FlatList
+                  data={addresses}
+                  renderItem={({ item }) => {
                     return (
                       <Address
-                        key={index}
-                        name={address.name}
-                        address={address}
+                        name={item.name}
+                        address={item}
                         selected={
                           selectedAddress
-                            ? address.address_id === selectedAddress.address_id
+                            ? item.address_id === selectedAddress.address_id
                             : false
                         }
-                        onPress={() => handleAddressSelect(address)}
+                        onPress={() => handleAddressSelect(item)}
                       />
                     );
-                  })}
-                </SafeAreaView>
-                <Button
-                  value={i18n.t('delivery.buttons.address')}
-                  onPress={() => props.navigation.navigate('AddAddressScreen')}
-                  outline
+                  }}
+                  keyExtractor={(item, index) => index.toString()}
                 />
+              </SafeAreaView>
+              <Button
+                value={i18n.t('delivery.buttons.address')}
+                onPress={() => props.navigation.navigate('AddAddressScreen')}
+                outline
+              />
+            </View>
+          )}
+          {!currentOrder.infos.type_of_order
+            .toLowerCase()
+            .includes('clube') && (
+            <View style={[styles.infoContainer, styles.secondContainer]}>
+              <View style={styles.refreshRow}>
+                <Text>{i18n.t('delivery.payment')}</Text>
+                <TouchableOpacity onPress={refreshPayments}>
+                  <Icon name="sync" size={20} color={Colors.PRIMARY} />
+                </TouchableOpacity>
               </View>
-            )}
-            {!currentOrder.infos.type_of_order
-              .toLowerCase()
-              .includes('clube') && (
-              <View style={[styles.infoContainer, styles.secondContainer]}>
-                <View style={styles.refreshRow}>
-                  <Text>{i18n.t('delivery.payment')}</Text>
-                  <TouchableOpacity onPress={refreshPayments}>
-                    <Icon name="sync" size={20} color={Colors.PRIMARY} />
-                  </TouchableOpacity>
-                </View>
-                <SafeAreaView>
-                  {creditCards.map((creditCard, index) => {
-                    return (
-                      <Payment
-                        key={index}
-                        cardNumber={creditCard.cardNumber}
-                        cardFlag={creditCard.cardFlag}
-                        selected={
-                          selectedCreditCard
-                            ? creditCard.id === selectedCreditCard.id
-                            : false
-                        }
-                        onPress={() => handleCreditCardSelect(creditCard)}
-                      />
-                    );
-                  })}
-                </SafeAreaView>
-                <Button
-                  value={i18n.t('delivery.buttons.payment')}
-                  onPress={() => props.navigation.navigate('AddPaymentScreen')}
-                  outline
+              <SafeAreaView style={{ maxHeight: 225 }}>
+                <FlatList
+                  data={creditCards}
+                  renderItem={({ item }) => (
+                    <Payment
+                      cardNumber={item.cardNumber}
+                      cardFlag={item.cardFlag}
+                      selected={
+                        selectedCreditCard
+                          ? item.id === selectedCreditCard.id
+                          : false
+                      }
+                      onPress={() => handleCreditCardSelect(item)}
+                    />
+                  )}
+                  keyExtractor={(item, index) => index.toString()}
                 />
-              </View>
-            )}
-          </View>
-        </ScrollView>
+              </SafeAreaView>
+              <Button
+                value={i18n.t('delivery.buttons.payment')}
+                onPress={() => props.navigation.navigate('AddPaymentScreen')}
+                outline
+              />
+            </View>
+          )}
+        </View>
       </SafeAreaView>
       <View style={styles.footer}>
         <ButtonFullWidth

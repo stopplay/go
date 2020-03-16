@@ -9,11 +9,11 @@ import {
   Text,
   KeyboardAvoidingView,
   ScrollView,
-  ToastAndroid,
   BackHandler,
 } from 'react-native';
 import styles from './styles/AddPaymentScreenStyle';
 import i18n from '../i18n/i18n';
+import Toast from 'react-native-root-toast';
 import CheckBox from '@react-native-community/checkbox';
 // Services
 import User from '../services/User';
@@ -64,16 +64,16 @@ const AddPaymentScreen = (props: Props) => {
         formInputs.cardHolder === '' ||
         formInputs.cpf === ''
       ) {
-        return ToastAndroid.show(
-          i18n.t('addPayment.errors.emptyFields'),
-          ToastAndroid.LONG,
-        );
+        return Toast.show(i18n.t('addPayment.errors.emptyFields'), {
+          duration: Toast.durations.LONG,
+          position: Toast.positions.BOTTOM,
+        });
       }
       if (!selectedCard) {
-        return ToastAndroid.show(
-          i18n.t('addPayment.errors.cardFlag'),
-          ToastAndroid.LONG,
-        );
+        return Toast.show(i18n.t('addPayment.errors.cardFlag'), {
+          duration: Toast.durations.LONG,
+          position: Toast.positions.BOTTOM,
+        });
       }
       setLoading(true);
       formInputs.cvv = parseInt(formInputs.cvv, 0);

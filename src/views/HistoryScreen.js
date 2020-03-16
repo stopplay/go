@@ -33,7 +33,6 @@ const History = (props: Props) => {
     (async () => {
       if (refreshing) {
         const data = await Orders.getHistory();
-        console.log(data);
         dispatch({
           type: 'LOAD_HISTORY',
           payload: data.reverse(),

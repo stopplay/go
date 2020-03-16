@@ -83,7 +83,7 @@ const AddPaymentScreen = (props: Props) => {
       if (data) {
         dispatch({
           type: 'CARD_ADDED',
-          payload: formInputs,
+          payload: data,
         });
         handleBackNavigation();
       }

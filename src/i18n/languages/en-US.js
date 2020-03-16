@@ -234,6 +234,12 @@ export default {
   paymentScreen: {
     title: 'Payment Methods',
     button: 'add',
+    deleteMessage: 'Are you sure you want to delete this credit card?',
+    deleteButtons: {
+      cancel: 'Cancel',
+      confirm: 'Confirm',
+    },
+    emptyList: 'Press the button bellow to add a credit card.',
   },
   selectLogin: {
     text: 'Login with',

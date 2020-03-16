@@ -146,6 +146,18 @@ const addCreditCard = async (newCard: PaymentType): Promise<?PaymentType> => {
   }
 };
 
+const removeCreditCard = async (cardId: number): Promise<?any> => {
+  try {
+    const response = await api.get(`payment/api/credit_card/${cardId}/delete/`);
+    if (response.status === 200) {
+      return response.data;
+    }
+    return null;
+  } catch (error) {
+    console.log(error.response);
+  }
+};
+
 const validateCEP = async (cep: string): any => {
   try {
     const response = await api.get(`https://viacep.com.br/ws/${cep}/json/`);
@@ -173,5 +185,6 @@ export default {
   addAddress,
   removeAddress,
   addCreditCard,
+  removeCreditCard,
   validateCEP,
 };

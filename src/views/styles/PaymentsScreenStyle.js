@@ -23,6 +23,9 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
   },
+  cardNumber: {
+    fontSize: 16,
+  },
   body: {
     flex: 8,
     width: '100%',
@@ -33,6 +36,16 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     justifyContent: 'flex-end',
+  },
+  pressTrashArea: {
+    width: 60,
+    height: 60,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
+  emptyText: {
+    width: '100%',
+    textAlign: 'center',
   },
 });
 export default styles;

@@ -225,7 +225,7 @@ export default {
   addressScreen: {
     title: 'Endereços',
     button: 'Adicionar',
-    message: 'Nenhum endereço cadastrado.',
+    message: 'Pressione o botão abaixo para adicionar um endereço.',
     deleteMessage: 'Tem certeza que deseja remover esse endereço?',
     deleteButtons: {
       cancel: 'Cancelar',
@@ -235,6 +235,12 @@ export default {
   paymentScreen: {
     title: 'Métodos de Pagamento',
     button: 'Adicionar',
+    deleteMessage: 'Tem certeza que deseja remover esse cartão de crédito?',
+    deleteButtons: {
+      cancel: 'Cancelar',
+      confirm: 'Confirmar',
+    },
+    emptyList: 'Pressione o botão abaixo para adicionar um cartão de crédito.',
   },
   selectLogin: {
     text: 'Login via',

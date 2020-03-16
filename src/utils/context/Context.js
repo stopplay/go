@@ -43,6 +43,7 @@ export type AddressType = {
 };
 
 export type PaymentType = {
+  id: number,
   cardNumber: string,
   cvv: number,
   expirationDate: string,
@@ -173,6 +174,17 @@ export function reducer(state: State = initialState, action: Action) {
         user: {
           ...state.user,
           cards: [...state.user.cards, action.payload],
+        },
+      };
+    case 'CARD_REMOVED':
+      const filteredCards: Array<PaymentType> = state.user.cards.filter(
+        card => card.id !== action.payload,
+      );
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          cards: filteredCards,
         },
       };
     case 'SELECTED_MENU':

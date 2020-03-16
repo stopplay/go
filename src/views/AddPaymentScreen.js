@@ -14,7 +14,6 @@ import {
 import styles from './styles/AddPaymentScreenStyle';
 import i18n from '../i18n/i18n';
 import Toast from 'react-native-root-toast';
-import CheckBox from '@react-native-community/checkbox';
 // Services
 import User from '../services/User';
 // Hooks
@@ -27,6 +26,7 @@ import Header from '../components/Header';
 import ButtonFullWidth from '../components/ButtonFullWidth';
 import InputText from '../components/InputText';
 import CardSelector from '../components/CardSelector';
+import CheckBox from '../components/CheckBox';
 
 type Props = {
   navigation: any,
@@ -179,10 +179,11 @@ const AddPaymentScreen = (props: Props) => {
               />
             </View>
             <View style={[styles.row, styles.checkBoxContainer]}>
-              <CheckBox value={checked} onChange={() => setChecked(!checked)} />
-              <Text style={styles.checkBoxText}>
-                {i18n.t('addPayment.checkBox').toUpperCase()}
-              </Text>
+              <CheckBox
+                value={checked}
+                onChange={() => setChecked(!checked)}
+                description={i18n.t('addPayment.checkBox').toUpperCase()}
+              />
             </View>
           </View>
         </ScrollView>

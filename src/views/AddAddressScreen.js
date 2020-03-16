@@ -91,7 +91,6 @@ const AddAddressScreen = (props: Props) => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log(error);
     }
   };
 
@@ -122,7 +121,6 @@ const AddAddressScreen = (props: Props) => {
         handleInputChange('district', data.bairro);
       }
     } catch (error) {
-      console.log(error);
       ToastAndroid.show(error.message, ToastAndroid.LONG);
     }
   };

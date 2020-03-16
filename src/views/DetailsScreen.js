@@ -81,7 +81,6 @@ const DetailsScreen = (props: Props) => {
         return setLoading(false);
       }
     } catch (error) {
-      console.log(error);
       setLoading(false);
       ToastAndroid.show(i18n.t(error.message), ToastAndroid.LONG);
     }

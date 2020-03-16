@@ -16,7 +16,6 @@ type Props = {
 
 const Ingredient = (props: Props) => {
   const { ingredient, handleQuantity } = props;
-  console.log(ingredient);
 
   const onPressMinus = () => {
     if (ingredient.quantity > 0) {

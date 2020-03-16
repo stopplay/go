@@ -52,7 +52,6 @@ const BreadClubScreen = (props: Props) => {
   };
 
   const handleSubmit = () => {
-    console.log(activeItem);
     props.navigation.navigate('BreadClubSubscriptionScreen', {
       package: activeItem,
     });

@@ -19,9 +19,7 @@ api.interceptors.request.use(async req => {
       }
     }
     return req;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 });
 
 export const authApi = axios.create({

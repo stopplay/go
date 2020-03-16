@@ -31,7 +31,6 @@ const BreadClubSubscriptionScreen = (props: Props) => {
   const clubPackage = props.navigation.getParam('package');
 
   const clubSubscribe = async () => {
-    console.log(formInputs);
     if (
       formInputs.cardNumber === '' ||
       formInputs.cvv === '' ||

@@ -60,7 +60,6 @@ const UserDetailsScreen = (props: Props) => {
         );
       }
     } catch (error) {
-      console.log(error);
       return ToastAndroid.show(error.message, ToastAndroid.LONG);
     }
   };

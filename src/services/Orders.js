@@ -53,8 +53,6 @@ const createOrder = async (newOrder: any): any => {
     }
     return null;
   } catch (error) {
-    console.log(error);
-    console.log(error.response);
     const message = Object.values(error.response.data)[0];
     throw { message };
   }
@@ -65,14 +63,12 @@ const cancelOrder = async (orderId: number): any => {
     const response = await api.post(
       `/orders/api/orders/${orderId}/cancel_order/`,
     );
-    console.log(response);
+
     if (response.status === 200) {
       return response.data;
     }
     return null;
   } catch (error) {
-    console.log(error);
-    console.log(error.message);
     throw { message: 'details.error.cancel' };
   }
 };

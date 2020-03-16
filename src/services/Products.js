@@ -65,7 +65,6 @@ const getMenus = async (): Promise<?Array<MenuType>> => {
 const getPackages = async (): Promise<?Array<PackageType>> => {
   try {
     const response = await api.get('products/api/packages/');
-    console.log(response);
     if (response.status === 200) {
       return response.data.results.map(clubPackage => ({
         ...clubPackage,

@@ -39,7 +39,6 @@ const login = async (credentials: Credentials): Promise<?AuthType> => {
     }
     return null;
   } catch (error) {
-    console.log(error.response);
     if (error.response.status === 401) {
       const message = Object.values(error.response.data)[0];
       throw { message };
@@ -71,7 +70,6 @@ const updateProfile = async (userInfo: ProfileType) => {
     }
     return null;
   } catch (error) {
-    console.log(error);
     const errors = {};
     if (error.response.status === 400) {
       errors.message = Object.values(error.response.data)[0];
@@ -88,8 +86,6 @@ const register = async (newUser: ProfileType): Promise<?AuthType> => {
     }
     return null;
   } catch (error) {
-    console.log(error.response);
-    console.log(error.response.data);
     if (error.response.data.email) {
       throw { message: error.response.data.email[0] };
     }

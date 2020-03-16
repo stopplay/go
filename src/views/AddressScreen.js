@@ -9,12 +9,12 @@ import {
   Text,
   SafeAreaView,
   FlatList,
-  ToastAndroid,
   TouchableOpacity,
 } from 'react-native';
 import styles from './styles/AddressScreenStyle';
 import i18n from '../i18n/i18n';
 import Icon from 'react-native-vector-icons/dist/MaterialIcons';
+import Toast from 'react-native-root-toast';
 import { Colors } from '../theme';
 // Contexts
 import Context from '../utils/context/Context';
@@ -53,7 +53,10 @@ const AddressScreen = (props: Props) => {
           payload: currentAddress.address_id,
         });
         setShowDelete(false);
-        ToastAndroid.show(data.message, ToastAndroid.LONG);
+        Toast.show(data.message, {
+          duration: Toast.durations.LONG,
+          position: Toast.positions.BOTTOM,
+        });
       }
     } catch (error) {}
   };

@@ -4,9 +4,10 @@
  */
 
 import React, { useState, useContext } from 'react';
-import { View, Text, FlatList, ToastAndroid } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import styles from './styles/CheckoutScreenStyle';
 import i18n from '../i18n/i18n';
+import Toast from 'react-native-root-toast';
 // Contexts
 import Context from '../utils/context/Context';
 // Components
@@ -52,10 +53,10 @@ const CheckoutScreen = (props: Props) => {
       return props.navigation.navigate('DeliveryScreen');
     }
     if (typeOfOrder === '') {
-      return ToastAndroid.show(
-        i18n.t('checkout.errors.selectType'),
-        ToastAndroid.LONG,
-      );
+      return Toast.show(i18n.t('checkout.errors.selectType'), {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.BOTTOM,
+      });
     }
     if (menuType === 'clube') {
       dispatch({

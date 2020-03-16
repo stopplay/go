@@ -3,18 +3,14 @@
  * @flow
  */
 
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   View,
   KeyboardAvoidingView,
   Text,
-  StatusBar,
   TouchableOpacity,
-  ToastAndroid,
-  TextInput,
-  Animated,
-  Easing,
 } from 'react-native';
+import Toast from 'react-native-root-toast';
 import styles from './styles/LoginScreenStyle';
 import i18n from '../i18n/i18n';
 import { setUser } from '../utils/helpers';
@@ -36,11 +32,13 @@ const LoginScreen = (props: Props) => {
   const [password, setPassword] = useState('');
   const { dispatch } = useContext(Context);
   const { setLoading } = useContext(LoadingContext);
-  let opacityAnimatedValue = new Animated.Value(0);
 
   const handleSubmit = async () => {
     if (email === '' || password === '') {
-      ToastAndroid.show(i18n.t('login.errors.emptyFields'), ToastAndroid.LONG);
+      Toast.show(i18n.t('login.errors.emptyFields'), {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.BOTTOM,
+      });
     } else {
       try {
         setLoading(true);
@@ -62,7 +60,10 @@ const LoginScreen = (props: Props) => {
         }
       } catch (error) {
         setLoading(false);
-        ToastAndroid.show(error.message, ToastAndroid.LONG);
+        Toast.show(error.message, {
+          duration: Toast.durations.LONG,
+          position: Toast.positions.BOTTOM,
+        });
       }
     }
   };

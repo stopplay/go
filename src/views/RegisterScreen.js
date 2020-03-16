@@ -8,9 +8,9 @@ import {
   View,
   KeyboardAvoidingView,
   Text,
-  ToastAndroid,
   TouchableOpacity,
 } from 'react-native';
+import Toast from 'react-native-root-toast';
 import styles from './styles/RegisterScreenStyle';
 import i18n from '../i18n/i18n';
 import { setUser } from '../utils/helpers';
@@ -54,16 +54,16 @@ const LoginScreen = (props: Props) => {
         phone === '' ||
         password === ''
       ) {
-        return ToastAndroid.show(
-          i18n.t('register.errors.emptyFields'),
-          ToastAndroid.LONG,
-        );
+        return Toast.show(i18n.t('register.errors.emptyFields'), {
+          duration: Toast.durations.LONG,
+          position: Toast.positions.BOTTOM,
+        });
       }
       if (password !== confirmPassword) {
-        return ToastAndroid.show(
-          i18n.t('register.errors.matchPasswords'),
-          ToastAndroid.LONG,
-        );
+        return Toast.show(i18n.t('register.errors.matchPasswords'), {
+          duration: Toast.durations.LONG,
+          position: Toast.positions.BOTTOM,
+        });
       }
       setLoading(true);
       const newUser = {
@@ -91,9 +91,11 @@ const LoginScreen = (props: Props) => {
       }
       setLoading(false);
     } catch (error) {
-      console.log(error.message);
       setLoading(false);
-      ToastAndroid.show(error.message, ToastAndroid.LONG);
+      Toast.show(error.message, {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.BOTTOM,
+      });
     }
   };
 
@@ -104,10 +106,10 @@ const LoginScreen = (props: Props) => {
   const prepareForm = () => {
     const { cpf, name, surname, phone } = formInputs;
     if (cpf === '' || name === '' || surname === '' || phone === '') {
-      return ToastAndroid.show(
-        i18n.t('register.errors.emptyFields'),
-        ToastAndroid.LONG,
-      );
+      return Toast.show(i18n.t('register.errors.emptyFields'), {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.BOTTOM,
+      });
     }
     setSubmit(true);
   };

@@ -15,12 +15,12 @@ import {
   Text,
   KeyboardAvoidingView,
   ScrollView,
-  ToastAndroid,
   TouchableOpacity,
   BackHandler,
 } from 'react-native';
 import styles from './styles/AddAddressScreenStyle';
 import i18n from '../i18n/i18n';
+import Toast from 'react-native-root-toast';
 import { TextInputMask } from 'react-native-masked-text';
 // Hooks
 import useForm from '../utils/hooks/Form';
@@ -72,10 +72,10 @@ const AddAddressScreen = (props: Props) => {
         number === '' ||
         district === ''
       ) {
-        return ToastAndroid.show(
-          i18n.t('addAddress.errors.emptyFields'),
-          ToastAndroid.LONG,
-        );
+        return Toast.show(i18n.t('addAddress.errors.emptyFields'), {
+          duration: Toast.durations.LONG,
+          position: Toast.positions.BOTTOM,
+        });
       }
       setLoading(true);
       formInputs.number = parseInt(formInputs.number, 0);
@@ -110,10 +110,10 @@ const AddAddressScreen = (props: Props) => {
     try {
       const cepValue = cepInputRef.current.getRawValue();
       if (cepValue === '') {
-        return ToastAndroid.show(
-          i18n.t('addAddress.errors.emptyCep'),
-          ToastAndroid.LONG,
-        );
+        return Toast.show(i18n.t('addAddress.errors.emptyCep'), {
+          duration: Toast.durations.LONG,
+          position: Toast.positions.BOTTOM,
+        });
       }
       const data = await User.validateCEP(cepValue);
       if (data) {
@@ -121,7 +121,10 @@ const AddAddressScreen = (props: Props) => {
         handleInputChange('district', data.bairro);
       }
     } catch (error) {
-      ToastAndroid.show(error.message, ToastAndroid.LONG);
+      Toast.show(error.message, {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.BOTTOM,
+      });
     }
   };
 

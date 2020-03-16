@@ -4,15 +4,10 @@
  */
 
 import React, { useContext } from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  ToastAndroid,
-} from 'react-native';
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import i18n from '../i18n/i18n';
 import styles from './styles/DetailsScreenStyle';
+import Toast from 'react-native-root-toast';
 import { formatDateTime, translatedStatusOrder } from '../utils/helpers';
 import { StackActions } from 'react-navigation';
 
@@ -82,7 +77,10 @@ const DetailsScreen = (props: Props) => {
       }
     } catch (error) {
       setLoading(false);
-      ToastAndroid.show(i18n.t(error.message), ToastAndroid.LONG);
+      Toast.show(i18n.t(error.message), {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.BOTTOM,
+      });
     }
   };
 

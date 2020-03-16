@@ -4,9 +4,10 @@
  */
 
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, ActivityIndicator, ToastAndroid } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import styles from './styles/CollectOrderScreenStyle';
 import i18n from '../i18n/i18n';
+import Toast from 'react-native-root-toast';
 // Services
 import Orders from '../services/Orders';
 // Contexts
@@ -66,7 +67,10 @@ const CollectOrderScreen = (props: Props) => {
     } catch (error) {
       setLoading(false);
       console.log(error);
-      ToastAndroid.show(error.message, ToastAndroid.LONG);
+      Toast.show(error.message, {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.BOTTOM,
+      });
     }
   };
 

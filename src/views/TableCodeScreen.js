@@ -3,8 +3,8 @@
  * @format
  */
 
-import React, { useState, useContext } from 'react';
-import { View, Text, ToastAndroid, FlatList, SafeAreaView } from 'react-native';
+import React, { useContext } from 'react';
+import { View, Text, FlatList, SafeAreaView } from 'react-native';
 import styles from './styles/TableCodeScreenStyle';
 import i18n from '../i18n/i18n';
 // Contexts

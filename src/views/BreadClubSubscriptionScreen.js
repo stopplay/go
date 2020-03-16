@@ -4,9 +4,10 @@
  */
 
 import React, { useState, useContext } from 'react';
-import { View, Text, ScrollView, ToastAndroid } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import styles from './styles/BreadClubSubscriptionScreenStyle';
 import i18n from '../i18n/i18n';
+import Toast from 'react-native-root-toast';
 // Contexts
 import Context from '../utils/context/Context';
 // Hooks
@@ -38,10 +39,10 @@ const BreadClubSubscriptionScreen = (props: Props) => {
       formInputs.cardholder === '' ||
       formInputs.cpf === ''
     ) {
-      return ToastAndroid.show(
-        i18n.t('club.sub.errors.emptyFields'),
-        ToastAndroid.LONG,
-      );
+      return Toast.show(i18n.t('club.sub.errors.emptyFields'), {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.BOTTOM,
+      });
     }
     formInputs.cvv = parseInt(formInputs.cvv, 0);
     const data = await Products.clubSubscribe(clubPackage.id, formInputs);

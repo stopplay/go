@@ -5,9 +5,10 @@
  */
 
 import React, { useContext, useEffect, useState } from 'react';
-import { View, ToastAndroid, ActivityIndicator, Text } from 'react-native';
+import { View, ActivityIndicator, Text } from 'react-native';
 import styles from './styles/SelectLoginScreenStyle';
 import i18n from '../i18n/i18n';
+import Toast from 'react-native-root-toast';
 // Services
 import Products from '../services/Products';
 import Orders from '../services/Orders';
@@ -73,10 +74,10 @@ const SelectMenuScreen = (props: Props) => {
       );
 
       if (menusFromType.length === 0) {
-        return ToastAndroid.show(
-          i18n.t('selectMenu.menuMessage'),
-          ToastAndroid.LONG,
-        );
+        return Toast.show(i18n.t('selectMenu.menuMessage'), {
+          duration: Toast.durations.LONG,
+          position: Toast.positions.BOTTOM,
+        });
       }
 
       let activeMenu = menusFromType.filter(menu => menu.active);

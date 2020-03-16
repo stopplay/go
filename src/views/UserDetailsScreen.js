@@ -4,8 +4,9 @@
  */
 
 import React, { useContext } from 'react';
-import { View, ToastAndroid, KeyboardAvoidingView } from 'react-native';
+import { View, KeyboardAvoidingView } from 'react-native';
 import styles from './styles/UserDetailsScreenStyle';
+import Toast from 'react-native-root-toast';
 import i18n from '../i18n/i18n';
 import Context from '../utils/context/Context';
 // Services
@@ -34,10 +35,10 @@ const UserDetailsScreen = (props: Props) => {
         formInputs.phone === '' ||
         formInputs.email === ''
       ) {
-        return ToastAndroid.show(
-          i18n.t('userDetails.errors.emptyFields'),
-          ToastAndroid.LONG,
-        );
+        return Toast.show(i18n.t('userDetails.errors.emptyFields'), {
+          duration: Toast.durations.LONG,
+          position: Toast.positions.BOTTOM,
+        });
       }
       const updatedInfos = {
         first_name: formInputs.name,
@@ -54,13 +55,16 @@ const UserDetailsScreen = (props: Props) => {
           type: 'UPDATE_USER',
           payload: data.user,
         });
-        return ToastAndroid.show(
-          i18n.t('userDetails.message'),
-          ToastAndroid.LONG,
-        );
+        return Toast.show(i18n.t('userDetails.message'), {
+          duration: Toast.durations.LONG,
+          position: Toast.positions.BOTTOM,
+        });
       }
     } catch (error) {
-      return ToastAndroid.show(error.message, ToastAndroid.LONG);
+      return Toast.show(error.message, {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.BOTTOM,
+      });
     }
   };
 

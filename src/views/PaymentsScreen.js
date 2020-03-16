@@ -9,9 +9,9 @@ import {
   Text,
   SafeAreaView,
   FlatList,
-  ToastAndroid,
   TouchableOpacity,
 } from 'react-native';
+import Toast from 'react-native-root-toast';
 import styles from './styles/PaymentsScreenStyle';
 import i18n from '../i18n/i18n';
 import Icon from 'react-native-vector-icons/dist/MaterialIcons';
@@ -46,7 +46,10 @@ const PaymentsScreen = (props: Props) => {
           payload: currentCC.id,
         });
         setShowDelete(false);
-        ToastAndroid.show(data.message, ToastAndroid.LONG);
+        Toast.show(data.message, {
+          duration: Toast.durations.LONG,
+          position: Toast.positions.BOTTOM,
+        });
       }
     } catch (error) {}
   };
